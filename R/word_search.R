@@ -12,6 +12,7 @@ word_search <- function(words = c("finding", "needles", "inside", "haystacks"),
 
   # check conditions
   words <- tolower(words)
+  words <- stringr::str_replace_all(words, " ", "")
   words <- words[nchar(words) <= max(c(r, c))]    # remove words that won't fit
   if (length(words) == 0) {
     message("No words can be placed.  Try a larger grid-size, or shorter words.")
@@ -66,6 +67,40 @@ max_word_size <- function(x) {
   out
 }
 
+#' Get possible intersection points based on the current board and a provided word
+#' @param x wordsearch matrix
+#' @param word the word to add (character/scalar)
+word_intersections <- function(x, word = "needles") {
+  r <- nrow(x)
+  c <- ncol(x)
+  A <- matrix(0, nrow = r, ncol = c)
+  out <- list(across = A, down = A)
+  sword <- stringr::str_split(word, "")[[1]]
+  for (i in 1:r) {
+    for (j in 1:c) {
+      if (!is.na(x[i, j])) {
+        ids <- x[i, j] == sword
+        if (any(ids)) {
+          for (id in which(ids)) {
+            # down
+            xseq <- (i - id + 1):(i + length(ids) - id)
+            if (all(xseq > 0 & xseq <= r))
+              if (all(is.na(x[xseq, j]) | x[xseq, j] == sword))
+                out$down[xseq[1], j] <- 1
+
+              # across
+              yseq <-  (j - id + 1):(j + length(ids) - id)
+              if (all(yseq > 0 & yseq <= c))
+                if (all(is.na(x[i, yseq]) | x[i, yseq] == sword))
+                  out$across[i, yseq[1] ] <- 1
+          }
+        }
+      }
+    }
+  }
+  out
+}
+
 
 #' Add a word to a wordsearch matrix
 #' @param x wordsearch matrix
@@ -75,17 +110,19 @@ add_word <- function(x, word = "finding") {
   # update matrix with possible insertion points
   r <- nrow(x)
   c <- ncol(x)
-  M <- max_word_size(x)
   n <- nchar(word)
+  M <- purrr::map2(
+    gamer:::max_word_size(x),
+    gamer:::word_intersections(x, word),
+    ~.x >= n | .y == 1
+    )
 
   # choose randomly (uniform) from all possible positions
-  v <- purrr::map_int(M, ~sum(.x >= n))
+  v <- purrr::map_int(M, sum)
   if (sum(v) == 0)
     return(x)
   d <- sample(names(M), 1, prob = v / sum(v))
-  pos <- sample(which(M[[d]] >= n), 1)
-
-  # TODO: catch if we run out of insertion points
+  pos <- sample(which(M[[d]]), 1)
 
   # add word at the chosen position
   id <- switch(d,
@@ -95,7 +132,7 @@ add_word <- function(x, word = "finding") {
   sword <- stringr::str_split(word, "")[[1]]
   x[id] <- sword
 
-  # TODO: store position (for drawing solution lines)
+  # store position (for drawing solution lines)
   positions <- tibble::tibble(
     word = word,
     letters = sword,

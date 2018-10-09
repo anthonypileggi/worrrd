@@ -4,7 +4,7 @@
 \alias{add_word}
 \title{Add a word to a wordsearch matrix}
 \usage{
-add_word(x, word = "finding")
+add_word(x, word = "finding", must_intersect = FALSE)
 }
 \arguments{
 \item{x}{wordsearch matrix}

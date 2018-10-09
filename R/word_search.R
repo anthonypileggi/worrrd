@@ -11,7 +11,7 @@ word_search <- function(words = c("finding", "needles", "inside", "haystacks"),
   x <- matrix(NA, nrow = r, ncol = c)
 
   # check conditions
-  words <- tolower(words)
+  words <- toupper(words)
   words <- stringr::str_replace_all(words, " ", "")
   words <- words[nchar(words) <= max(c(r, c))]    # remove words that won't fit
   if (length(words) == 0) {
@@ -36,7 +36,7 @@ word_search <- function(words = c("finding", "needles", "inside", "haystacks"),
   solution <- x
 
   # fill remaining matrix with random letters
-  x[is.na(x)] <- sample(letters, sum(is.na(x)), replace = TRUE)
+  x[is.na(x)] <- sample(LETTERS, sum(is.na(x)), replace = TRUE)
 
   list(
     search = x,
@@ -75,24 +75,39 @@ word_intersections <- function(x, word = "needles") {
   c <- ncol(x)
   A <- matrix(0, nrow = r, ncol = c)
   out <- list(across = A, down = A)
-  sword <- stringr::str_split(word, "")[[1]]
+  sword <- stringr::str_split(toupper(word), "")[[1]]
   for (i in 1:r) {
     for (j in 1:c) {
       if (!is.na(x[i, j])) {
         ids <- x[i, j] == sword
         if (any(ids)) {
           for (id in which(ids)) {
+
             # down
             xseq <- (i - id + 1):(i + length(ids) - id)
-            if (all(xseq > 0 & xseq <= r))
-              if (all(is.na(x[xseq, j]) | x[xseq, j] == sword))
-                out$down[xseq[1], j] <- 1
+            if (all(xseq > 0 & xseq <= r)) {
+              cids <- which(is.na(x[xseq, j]))                                    # find non-crossing points
+              if (j > 1 && all(is.na(x[xseq[cids], j - 1])))                      # check left (minus crossing points)
+                if (j < c && all(is.na(x[xseq[cids], j + 1])))                    # check right (minus crossing points)
+                  if (xseq[1] > 1 && is.na(x[xseq[1] - 1, j]))                    # check above
+                    if (tail(xseq, 1) < r && is.na(x[tail(xseq, 1) + 1, j]))      # check below
+                      if (all(is.na(x[xseq, j]) | x[xseq, j] == sword))
+                        out$down[xseq[1], j] <- 1
+            }
 
-              # across
-              yseq <-  (j - id + 1):(j + length(ids) - id)
-              if (all(yseq > 0 & yseq <= c))
-                if (all(is.na(x[i, yseq]) | x[i, yseq] == sword))
-                  out$across[i, yseq[1] ] <- 1
+
+            # across
+            yseq <-  (j - id + 1):(j + length(ids) - id)
+            if (all(yseq > 0 & yseq <= c)) {
+              cids <- which(is.na(x[i, yseq]))                                    # find non-crossing points
+              if (i > 1 && all(is.na(x[i - 1, yseq[cids] ])))                     # check above (minus crossing points)
+                if (i < r && all(is.na(x[i + 1, yseq[cids] ])))                   # check below (minus crossing points)
+                  if (yseq[1] > 1 && is.na(x[i, yseq[1] - 1]))                    # check left (before)
+                    if (tail(yseq, 1) < c && is.na(x[i, tail(yseq, 1) + 1]))      # check right (after)
+                      if (all(is.na(x[i, yseq]) | x[i, yseq] == sword))
+                        out$across[i, yseq[1] ] <- 1
+            }
+
           }
         }
       }
@@ -105,16 +120,19 @@ word_intersections <- function(x, word = "needles") {
 #' Add a word to a wordsearch matrix
 #' @param x wordsearch matrix
 #' @param word the word to add (character/scalar)
-add_word <- function(x, word = "finding") {
+add_word <- function(x, word = "finding", must_intersect = FALSE) {
 
-  # update matrix with possible insertion points
   r <- nrow(x)
   c <- ncol(x)
   n <- nchar(word)
-  M <- purrr::map2(
-    gamer:::max_word_size(x),
-    gamer:::word_intersections(x, word),
-    ~.x >= n | .y == 1
+
+  # update matrix with possible insertion points
+  M <-
+    purrr::map2(
+      gamer:::max_word_size(x),
+      gamer:::word_intersections(x, word),
+      function(a, b)
+        (!must_intersect & a >= n) | b == 1
     )
 
   # choose randomly (uniform) from all possible positions
@@ -122,7 +140,9 @@ add_word <- function(x, word = "finding") {
   if (sum(v) == 0)
     return(x)
   d <- sample(names(M), 1, prob = v / sum(v))
-  pos <- sample(which(M[[d]]), 1)
+  pos <- which(M[[d]])
+  if (length(pos) > 1)
+    pos <- sample(pos, 1)
 
   # add word at the chosen position
   id <- switch(d,
@@ -136,7 +156,10 @@ add_word <- function(x, word = "finding") {
   positions <- tibble::tibble(
     word = word,
     letters = sword,
-    id = id
+    id = id,
+    i = (id - 1) %% r + 1,
+    j = floor((id - 1) / r) + 1,
+    dir = d
   )
   if (is.null(attr(x, "positions"))) {
     attr(x, "positions") <- positions
@@ -174,15 +197,8 @@ plot_word_search <- function(x, solution = FALSE, letter_size = 8) {
     theme_void() +
     theme(aspect.ratio = ncol(x$search) / nrow(x$search))
 
-  if (solution) {
-    xs <-
-      dplyr::mutate(
-        attr(x$search, "positions"),
-        i = (id - 1) %% nrow(x$search) + 1,
-        j = floor((id - 1) / nrow(x$search)) + 1
-      )
-    g1 <- g1 + geom_line(aes(x = i, y = j, group = word), color = "red", data = xs)
-  }
+  if (solution)
+    g1 <- g1 + geom_line(aes(x = i, y = j, group = word), color = "red", data = attr(x$search, "positions"))
 
   g1
 }

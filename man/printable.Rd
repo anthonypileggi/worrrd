@@ -4,7 +4,12 @@
 \alias{printable}
 \title{Prepare a gamer object for printing}
 \usage{
-printable(x)
+printable(x, filename = "plot.pdf")
+}
+\arguments{
+\item{x}{ggplot object}
+
+\item{filename}{name of file}
 }
 \description{
 Prepare a gamer object for printing

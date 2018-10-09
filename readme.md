@@ -22,6 +22,22 @@ x <- word_search(state.name, r = 40, c = 40)
 plot_word_search(x, solution = TRUE)
 ```
 
+## Crossword Puzzle
+
+Oh, you're one of the more sophicated types that craves a crossword puzzle?  Worrrd.
+
+```
+x <- crossword()
+plot_crossword(x)
+```
+
+Oh, is that too easy for you?  How about a harder one, champ?
+
+```
+x <- crossword(state.name, r = 40, c = 40)
+plot_crossword(x)
+```
+
 ## Ideas
 
 ### Static (i.e., print and bring with you)

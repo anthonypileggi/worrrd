@@ -1,8 +1,8 @@
-
 #' Create a crossword puzzle
 #' @param words a vector of hidden words (character/vector)
 #' @param r number of rows
 #' @param c number of columns
+#' @importFrom magrittr "%>%"
 #' @export
 crossword <- function(words = c("finding", "needles", "inside", "haystacks"),
                       r = 10,
@@ -37,7 +37,7 @@ crossword <- function(words = c("finding", "needles", "inside", "haystacks"),
   attr(x, "clues") <- attr(x, "positions") %>%
     dplyr::group_by(word) %>%
     dplyr::slice(1) %>%
-    group_by(dir) %>%
+    dplyr::group_by(dir) %>%
     dplyr::mutate(
       n = dplyr::row_number()
     )

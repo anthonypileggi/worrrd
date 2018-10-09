@@ -4,8 +4,8 @@
 \alias{crossword}
 \title{Create a crossword puzzle}
 \usage{
-crossword(words = c("finding", "needles", "inside", "haystacks"), r = 10,
-  c = 10)
+crossword(words = c("finding", "needles", "inside", "haystacks"), r = 50,
+  c = 50)
 }
 \arguments{
 \item{words}{a vector of hidden words (character/vector)}

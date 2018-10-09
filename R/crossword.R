@@ -5,8 +5,8 @@
 #' @importFrom magrittr "%>%"
 #' @export
 crossword <- function(words = c("finding", "needles", "inside", "haystacks"),
-                      r = 10,
-                      c = 10) {
+                      r = 50,
+                      c = 50) {
 
   # uppercase everything; ignore spaces
   words <- toupper(words)
@@ -21,7 +21,7 @@ crossword <- function(words = c("finding", "needles", "inside", "haystacks"),
   # iteratively add words to the board
   i <- 0
   w <- NULL
-  while (length(words) > 0 & i < 100) {
+  while (length(words) > 0 & i < 1000) {
     i <- i + 1
     x <- gamer:::add_word(x, sample(words, 1), must_intersect = !is.null(w))
     w <- unique(attr(x, "positions")$word)
@@ -29,8 +29,8 @@ crossword <- function(words = c("finding", "needles", "inside", "haystacks"),
   }
 
   # status report
-  if (i >= 100)
-    message("Stopped trying after reaching the maximum # of iterations.")
+  if (i >= 1000)
+    message("Stopped trying after reaching 1000 iterations.")
   message(paste0("Found positions for ", n - length(words), "/", n, " words."))
 
   # add clues

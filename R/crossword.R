@@ -40,14 +40,16 @@ crossword <- function(words = c("finding", "needles", "inside", "haystacks"),
 #' Plot a crossword puzzle
 #' @param x a crossword object
 #' @export
-plot_crossword <- function(x) {
+plot_crossword <- function(x, solution = FALSE) {
   require(ggplot2)
-  ggplot(attr(x, "positions")) +
+  g1 <- ggplot(attr(x, "positions")) +
     geom_tile(aes(x = i, y = j, group = word), color = "black", fill = "lightgray", alpha = 1) +
-    geom_text(aes(x = i, y = j, label = letters)) +
-    geom_text(aes(x = i, y = j, label = n), size = 2, nudge_y = .35, nudge_x = -.35, color = "red", data = attr(x, "clues")) +
+    geom_text(aes(x = i, y = j, label = n), size = 3, nudge_y = .35, nudge_x = -.35, color = "red", data = attr(x, "clues")) +
     scale_y_reverse() +
     theme_void() +
     theme(aspect.ratio = ncol(x) / nrow(x))
+  if (solution)
+    g1 <- g1 + geom_text(aes(x = i, y = j, label = letters))
+  g1
 }
 

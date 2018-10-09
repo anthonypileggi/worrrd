@@ -28,14 +28,14 @@ Oh, you're one of the more sophicated types that craves a crossword puzzle?  Wor
 
 ```
 x <- crossword()
-plot_crossword(x)
+plot_crossword(x, solution = TRUE)
 ```
 
 Oh, is that too easy for you?  How about a harder one, champ?
 
 ```
 x <- crossword(state.name, r = 40, c = 40)
-plot_crossword(x)
+plot_crossword(x, solution = TRUE)
 ```
 
 ## Ideas

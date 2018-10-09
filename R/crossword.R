@@ -11,6 +11,9 @@ crossword <- function(words = c("finding", "needles", "inside", "haystacks"),
   # uppercase everything; ignore spaces
   words <- toupper(words)
   words <- stringr::str_replace_all(words, " ", "")
+  n <- length(words)
+
+  # TODO: automatically determine r/c based on content of `words`
 
   # create empty matrix to store crossword
   x <- matrix(NA, nrow = r, ncol = c)
@@ -25,6 +28,11 @@ crossword <- function(words = c("finding", "needles", "inside", "haystacks"),
     words <- setdiff(words, w)
   }
 
+  # status report
+  if (i >= 100)
+    message("Stopped trying after reaching the maximum # of iterations.")
+  message(paste0("Found positions for ", n - length(words), "/", n, " words."))
+
   # add clues
   attr(x, "clues") <- attr(x, "positions") %>%
     dplyr::group_by(word) %>%
@@ -34,17 +42,40 @@ crossword <- function(words = c("finding", "needles", "inside", "haystacks"),
       n = dplyr::row_number()
     )
 
+  as_crossword(x)
+}
+
+
+# Constructors =============================================================
+
+#' Assign an object to the `crossword` class
+#' @param x an object containing crossword data
+#' @export
+as_crossword <- function(x) {
+  if (!is_crossword(x))
+    class(x) <- append("crossword", class(x))
   x
 }
 
-#' Plot a crossword puzzle
-#' @param x a crossword object
+#' Check if an object is of the `crossword` class
+#' @param x an R object to check
 #' @export
-plot_crossword <- function(x, solution = FALSE) {
+is_crossword <- function(x) {
+  inherits(x, "crossword")
+}
+
+
+# Methods ==================================================================
+
+#' Plot a crossword puzzle
+#' @param x a crossword object (see \code{\link{crossword}})
+#' @param solution show solution? (logical/scalar)
+#' @export
+plot.crossword <- function(x, solution = FALSE) {
   require(ggplot2)
   g1 <- ggplot(attr(x, "positions")) +
     geom_tile(aes(x = i, y = j, group = word), color = "black", fill = "lightgray", alpha = 1) +
-    geom_text(aes(x = i, y = j, label = n), size = 3, nudge_y = .35, nudge_x = -.35, color = "red", data = attr(x, "clues")) +
+    geom_text(aes(x = i, y = j, label = n), size = 2, nudge_y = .35, nudge_x = -.35, color = "red", data = attr(x, "clues")) +
     scale_y_reverse() +
     theme_void() +
     theme(aspect.ratio = ncol(x) / nrow(x))

@@ -4,15 +4,16 @@
 #' @param c number of columns
 #' @export
 wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
-                        r = 10,
-                        c = 10) {
+                       r = 10,
+                       c = 10) {
 
   # create empty matrix
   x <- matrix(NA, nrow = r, ncol = c)
 
+  # prepare the word list
+  words <- prepare_words(words)
+
   # check conditions
-  words <- toupper(words)
-  words <- stringr::str_replace_all(words, " ", "")
   words <- words[nchar(words) <= max(c(r, c))]    # remove words that won't fit
   if (length(words) == 0) {
     message("No words can be placed.  Try a larger grid-size, or shorter words.")
@@ -68,6 +69,16 @@ is_wordsearch <- function(x) {
 
 
 # Methods ===================================================================
+
+#' Print a wordsearch puzzle
+#' @export
+print.wordsearch <- function(x) {
+  cat(paste("Wordsearch\n"))
+  cat(paste("Rows:", nrow(x$search), "\n"))
+  cat(paste("Columns:", ncol(x$search), "\n"))
+  cat(paste("Hidden Words:", length(x$words), "\n"))
+  invisible(x)
+}
 
 #' Draw a wordsearch puzzle
 #' @param x wordsearch object

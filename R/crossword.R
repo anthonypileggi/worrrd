@@ -31,7 +31,7 @@ crossword <- function(words,
   #   - force words to be intersecting after placing the first word
   #     TODO: place first word in board center
   #   - each time a word is added, reshuffle the remaining words
-  #   - if no word can be placed, break loop
+  #   - if no word can be placed after a reshuffle, give up (i.e., break loop)
   while (length(words) > 0) {
     word_added <- FALSE
     for (word in sample(words)) {

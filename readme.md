@@ -39,7 +39,7 @@ plot(x, solution = TRUE)
 #> Loading required package: ggplot2
 ```
 
-![](man/figures/README-unnamed-chunk-3-1.png)
+![](man/figures/README-wordsearch-easy-1.png)
 
 You can make it as hard as you want. Go bananas!
 
@@ -51,7 +51,7 @@ x <- wordsearch(state.name, r = 50, c = 50)
 plot(x, solution = TRUE, letter_size = 2)
 ```
 
-![](man/figures/README-unnamed-chunk-4-1.png)
+![](man/figures/README-wordsearch-hard-1.png)
 
 #### Crossword Puzzle
 
@@ -65,11 +65,11 @@ x <- crossword(words, clues, r = 40, c = 40)
 x
 #> Crossword Puzzle
 #> Contains 50 clues.
-#> There are 29 across and 21 down.
+#> There are 23 across and 27 down.
 ```
 
 ``` r
 plot(x, solution = TRUE)
 ```
 
-![](man/figures/README-unnamed-chunk-5-1.png)
+![](man/figures/README-crossword-1.png)

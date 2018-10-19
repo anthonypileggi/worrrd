@@ -11,7 +11,7 @@ max_word_size <- function(x, shape_matrix = NULL) {
 
   # apply shape matrix
   if (!is.null(shape_matrix))
-    A[!image] <- 0
+    A[!shape_matrix] <- 0
 
   # compute max word sizes
   out <- list(across = A, down = A)

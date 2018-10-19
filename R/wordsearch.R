@@ -23,12 +23,13 @@ wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
   }
 
   # generate shape file (if provided)
+  shape_matrix <- NULL
   if (!is.null(image))
-    image <- image_matrix(image, r, c)
+    shape_matrix <- image_matrix(image, r, c)
 
   # iteratively add words to the board
   for (i in seq_along(words)) {
-    x_new <- add_word(x, words[i], shape_matrix = image)
+    x_new <- add_word(x, words[i], shape_matrix = shape_matrix)
     if (identical(x, x_new))
       break
     x <- x_new
@@ -45,7 +46,7 @@ wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
   # fill remaining matrix with random letters
   ids <- is.na(x)
   if (!is.null(image))
-    ids <- ids & image
+    ids <- ids & shape_matrix
   x[ids] <- sample(LETTERS, sum(ids), replace = TRUE)
 
   out <-
@@ -53,7 +54,8 @@ wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
       search = x,
       words = words,
       solution = solution,
-      shape_matrix = image
+      image = image,
+      shape_matrix = shape_matrix
     )
   as_wordsearch(out)
 }
@@ -108,22 +110,40 @@ plot.wordsearch <- function(x, solution = FALSE, letter_size = 8) {
         i = .x,
         j = .y,
         value = x$search[.x, .y],
-        word = !is.na(x$solution[.x, .y])
+        word = !is.na(x$solution[.x, .y]),
+        outline = ifelse(is.null(x$shape_matrix), TRUE, x$shape_matrix[.x, .y])
         )
     )
 
-  g1 <- ggplot(xt) +
+  g1 <- xt %>%
+    dplyr::filter(!is.na(value)) %>%
+    ggplot() +
     geom_text(aes(x = i, y = j, label = value), size = letter_size) +
-    annotate("rect",
-      xmin = 0.5, ymin = 0.5, xmax = max(xt$i) + 0.5, ymax = max(xt$j) + 0.5,
-      alpha = 0, color = "black"
-    ) +
     scale_y_reverse() +
     theme_void() +
     theme(aspect.ratio = ncol(x$search) / nrow(x$search))
 
   if (solution)
     g1 <- g1 + geom_line(aes(x = i, y = j, group = word), color = "red", data = attr(x$search, "positions"))
+
+  # if using a 'shape_matrix', add the outline; otherwise, add a border
+  if (is.null(x$shape_matrix)) {
+    g1 <- g1 +
+      annotate("rect",
+        xmin = 0.5, ymin = 0.5,
+        xmax = max(xt$i) + 0.5, ymax = max(xt$j) + 0.5,
+        alpha = 0, color = "black"
+      )
+  } else {
+    g1 <- g1 +
+      geom_tile(
+        aes(x = i, y = j),
+        alpha = .1, fill = "gray", color = "gray",
+        data = dplyr::filter(xt, outline)
+        )
+  }
+
+  # add a background image
 
   g1
 }

@@ -2,6 +2,7 @@
 #' @param x word matrix
 #' @param word the word to add (character/scalar)
 #' @param must_intersect force the added word to intersect with >1 word (logical/scalar)
+#' @return word matrix with word added (if possible)
 add_word <- function(x,
                      word = "finding",
                      must_intersect = FALSE) {
@@ -11,15 +12,17 @@ add_word <- function(x,
   n <- nchar(word)
 
   # update matrix with possible insertion points
+  #   - if 'must_intersect' is true, prioritize the maximal crossing-points
   M <-
     purrr::map2(
       gamer:::max_word_size(x),
       gamer:::word_intersections(x, word),
       function(a, b)
-        (!must_intersect & a >= n) | b == 1
+        (!must_intersect & a >= n) | (b > 0 & b == max(b))
     )
 
   # choose randomly (uniform) from all possible positions
+  #   - if 'must_intersect' is true, choose from (maximal) crossing-points only
   v <- purrr::map_int(M, sum)
   if (sum(v) == 0)
     return(x)

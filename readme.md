@@ -1,8 +1,9 @@
 
 -   [Worrrd](#worrrd)
-    -   [Install worrrd](#install-worrrd)
-    -   [Wordsearch](#wordsearch)
-    -   [Crossword Puzzle](#crossword-puzzle)
+-   [Install worrrd](#install-worrrd)
+-   [Wordsearch](#wordsearch)
+    -   [Custom Shapes](#custom-shapes)
+-   [Crossword Puzzle](#crossword-puzzle)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -18,14 +19,16 @@ Features:
 -   Crossword Puzzle
 -   Wordsearch
 
-### Install worrrd
+Install worrrd
+--------------
 
 ``` r
 install.packages("devtools")
 devtools::install_github("anthonypileggi/worrrd")
 ```
 
-### Wordsearch
+Wordsearch
+----------
 
 Create your very own custom wordsearch! Worrrd.
 
@@ -55,7 +58,7 @@ plot(x, solution = TRUE, letter_size = 2)
 
 ![](man/figures/README-wordsearch-hard-1.png)
 
-#### Custom Shapes
+### Custom Shapes
 
 Wait, what? You want to make it in the shape of a banana? I mean, that's kinda weird... but why not!
 
@@ -70,7 +73,8 @@ plot(x, solution = TRUE)
 
 ![](man/figures/README-wordsearch-banana-1.png)
 
-### Crossword Puzzle
+Crossword Puzzle
+----------------
 
 Oh, you're one of the more sophicated types that craves a crossword puzzle? Worrrd.
 
@@ -82,7 +86,7 @@ x <- crossword(words, clues, r = 40, c = 40)
 x
 #> Crossword Puzzle
 #> Contains 50 clues.
-#> There are 24 across and 26 down.
+#> There are 25 across and 25 down.
 ```
 
 ``` r

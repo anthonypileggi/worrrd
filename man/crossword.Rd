@@ -4,14 +4,16 @@
 \alias{crossword}
 \title{Create a crossword puzzle}
 \usage{
-crossword(x, r = 50, c = 50)
+crossword(words, clues, r = 50, c = 50)
 }
 \arguments{
-\item{x}{a 2-column list/tibble/data.frame containing words and clues}
+\item{words}{a vector of words (character/vector)}
 
-\item{r}{number of rows}
+\item{clues}{a vector a clues (character/vector)}
 
-\item{c}{number of columns}
+\item{r}{number of rows (numeric/scalar)}
+
+\item{c}{number of columns (numeric/scalar)}
 }
 \description{
 Create a crossword puzzle

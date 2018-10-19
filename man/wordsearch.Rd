@@ -5,7 +5,7 @@
 \title{Create a wordsearch puzzle}
 \usage{
 wordsearch(words = c("finding", "needles", "inside", "haystacks"), r = 10,
-  c = 10)
+  c = 10, image = NULL)
 }
 \arguments{
 \item{words}{a vector of hidden words (character/vector)}
@@ -13,6 +13,8 @@ wordsearch(words = c("finding", "needles", "inside", "haystacks"), r = 10,
 \item{r}{number of rows}
 
 \item{c}{number of columns}
+
+\item{image}{path to an image that the resulting grid should look like.NULL for no shape}
 }
 \description{
 Create a wordsearch puzzle

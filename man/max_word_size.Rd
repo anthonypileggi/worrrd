@@ -4,10 +4,12 @@
 \alias{max_word_size}
 \title{Compute maximum word size, based on the current word matrix}
 \usage{
-max_word_size(x)
+max_word_size(x, shape_matrix = NULL)
 }
 \arguments{
 \item{x}{word_search matrix}
+
+\item{shape_matrix}{shape matrix (logical) of identical size to 'x'}
 }
 \description{
 Compute maximum word size, based on the current word matrix

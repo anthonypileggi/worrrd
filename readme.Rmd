@@ -56,8 +56,18 @@ x <- wordsearch(state.name, r = 50, c = 50)
 plot(x, solution = TRUE, letter_size = 2)
 ```
 
+#### Custom Shapes
 
-#### Crossword Puzzle
+Wait, what?  You want to make it in the shape of a banana?  I mean, that's kinda weird... but why not!
+
+```{r wordsearch-banana}
+banana <- "https://upload.wikimedia.org/wikipedia/commons/9/96/Tux_Paint_banana.svg"
+words <- c("banana", "apple", "grapes", "orange", "pear", "kumquat")
+x <- wordsearch(words, r = 20, c = 20, image = banana)
+plot(x, solution = TRUE)
+```
+
+### Crossword Puzzle
 
 Oh, you're one of the more sophicated types that craves a crossword puzzle?  Worrrd.
 

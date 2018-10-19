@@ -1,6 +1,7 @@
 #' Get possible intersection points based on the current board and a provided word
 #' @param x word matrix
 #' @param word the word to add (character/scalar)
+#' @return for each direction, a matrix of crossing-point counts
 word_intersections <- function(x, word = "needles") {
 
   r <- nrow(x)
@@ -26,7 +27,7 @@ word_intersections <- function(x, word = "needles") {
                   if (xseq[1] > 1 && is.na(x[xseq[1] - 1, j]))                    # check above
                     if (tail(xseq, 1) < r && is.na(x[tail(xseq, 1) + 1, j]))      # check below
                       if (all(is.na(x[xseq, j]) | x[xseq, j] == sword))
-                        out$down[xseq[1], j] <- 1
+                        out$down[xseq[1], j] <- length(xseq) - length(cids)       # save the intersection count for each
             }
 
 
@@ -39,7 +40,7 @@ word_intersections <- function(x, word = "needles") {
                   if (yseq[1] > 1 && is.na(x[i, yseq[1] - 1]))                    # check left (before)
                     if (tail(yseq, 1) < c && is.na(x[i, tail(yseq, 1) + 1]))      # check right (after)
                       if (all(is.na(x[i, yseq]) | x[i, yseq] == sword))
-                        out$across[i, yseq[1] ] <- 1
+                        out$across[i, yseq[1] ] <- length(yseq) - length(cids)    # save the intersection count for each
             }
 
           }

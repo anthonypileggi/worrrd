@@ -1,12 +1,17 @@
 #' Compute maximum word size, based on the current word matrix
 #' @param x word_search matrix
-max_word_size <- function(x) {
+#' @param shape_matrix shape matrix (logical) of identical size to 'x'
+max_word_size <- function(x, shape_matrix = NULL) {
 
   # setup activation matrix
   r <- nrow(x)
   c <- ncol(x)
   A <- matrix(1, nrow = r, ncol = c)
   A[!is.na(x)] <- 0
+
+  # apply shape matrix
+  if (!is.null(shape_matrix))
+    A[!image] <- 0
 
   # compute max word sizes
   out <- list(across = A, down = A)

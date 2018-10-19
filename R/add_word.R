@@ -5,7 +5,8 @@
 #' @return word matrix with word added (if possible)
 add_word <- function(x,
                      word = "finding",
-                     must_intersect = FALSE) {
+                     must_intersect = FALSE,
+                     shape_matrix = NULL) {
 
   r <- nrow(x)
   c <- ncol(x)
@@ -13,10 +14,11 @@ add_word <- function(x,
 
   # update matrix with possible insertion points
   #   - if 'must_intersect' is true, prioritize the maximal crossing-points
+  #   - account for a 'shape_matrix', if present
   M <-
     purrr::map2(
-      gamer:::max_word_size(x),
-      gamer:::word_intersections(x, word),
+      max_word_size(x, shape_matrix),
+      word_intersections(x, word),
       function(a, b)
         (!must_intersect & a >= n) | (b > 0 & b == max(b))
     )

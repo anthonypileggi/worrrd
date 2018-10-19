@@ -2,10 +2,12 @@
 #' @param words a vector of hidden words (character/vector)
 #' @param r number of rows
 #' @param c number of columns
+#' @param image path to an image that the resulting grid should look like.NULL for no shape
 #' @export
 wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
                        r = 10,
-                       c = 10) {
+                       c = 10,
+                       image = NULL) {
 
   # create empty matrix
   x <- matrix(NA, nrow = r, ncol = c)
@@ -20,9 +22,13 @@ wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
     return(NULL)
   }
 
+  # generate shape file (if provided)
+  if (!is.null(image))
+    image <- image_matrix(image, r, c)
+
   # iteratively add words to the board
   for (i in seq_along(words)) {
-    x_new <- add_word(x, words[i])
+    x_new <- add_word(x, words[i], shape_matrix = image)
     if (identical(x, x_new))
       break
     x <- x_new
@@ -37,13 +43,17 @@ wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
   solution <- x
 
   # fill remaining matrix with random letters
-  x[is.na(x)] <- sample(LETTERS, sum(is.na(x)), replace = TRUE)
+  ids <- is.na(x)
+  if (!is.null(image))
+    ids <- ids & image
+  x[ids] <- sample(LETTERS, sum(ids), replace = TRUE)
 
   out <-
     list(
       search = x,
       words = words,
-      solution = solution
+      solution = solution,
+      shape_matrix = image
     )
   as_wordsearch(out)
 }

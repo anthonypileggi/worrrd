@@ -13,6 +13,9 @@ add_word(x, word = "finding", must_intersect = FALSE)
 
 \item{must_intersect}{force the added word to intersect with >1 word (logical/scalar)}
 }
+\value{
+word matrix with word added (if possible)
+}
 \description{
 Add a word to a word matrix
 }

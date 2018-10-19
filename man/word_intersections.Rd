@@ -11,6 +11,9 @@ word_intersections(x, word = "needles")
 
 \item{word}{the word to add (character/scalar)}
 }
+\value{
+for each direction, a matrix of crossing-point counts
+}
 \description{
 Get possible intersection points based on the current board and a provided word
 }

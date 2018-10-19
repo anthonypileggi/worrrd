@@ -4,11 +4,10 @@
 \alias{crossword}
 \title{Create a crossword puzzle}
 \usage{
-crossword(words = c("finding", "needles", "inside", "haystacks"), r = 50,
-  c = 50)
+crossword(x, r = 50, c = 50)
 }
 \arguments{
-\item{words}{a vector of hidden words (character/vector)}
+\item{x}{a 2-column list/tibble/data.frame containing words and clues}
 
 \item{r}{number of rows}
 

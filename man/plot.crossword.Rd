@@ -4,12 +4,15 @@
 \alias{plot.crossword}
 \title{Plot a crossword puzzle}
 \usage{
-\method{plot}{crossword}(x, solution = FALSE)
+\method{plot}{crossword}(x, solution = FALSE, clues = FALSE,
+  title = "Crossword Puzzle")
 }
 \arguments{
 \item{x}{a crossword object (see \code{\link{crossword}})}
 
 \item{solution}{show solution? (logical/scalar)}
+
+\item{clues}{show clues? (logical/scalar)}
 }
 \description{
 Plot a crossword puzzle

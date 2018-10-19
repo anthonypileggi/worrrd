@@ -87,6 +87,7 @@ print.wordsearch <- function(x) {
   cat(paste("Rows:", nrow(x$search), "\n"))
   cat(paste("Columns:", ncol(x$search), "\n"))
   cat(paste("Hidden Words:", length(x$words), "\n"))
+  cat(paste("Custom Shape:", ifelse(is.null(x$shape_matrix), "No", "Yes"), "\n"))
   invisible(x)
 }
 

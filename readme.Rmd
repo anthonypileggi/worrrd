@@ -1,11 +1,11 @@
 ---
 output:
-  github_document:
-    toc: true 
-    toc_depth: 3
+  github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# worrrd <img src="man/figures/logo.png" align="right" />
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
@@ -15,10 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
----
-
-Worrrd
----
+## Overview
 
 Build word games using R.  Ya hearrrd?
 
@@ -27,7 +24,7 @@ Features:
   - Crossword Puzzle
   - Wordsearch
   
-## Install worrrd
+## Installation
 
 ```{r eval = FALSE}
 install.packages("devtools")
@@ -67,13 +64,21 @@ x <- wordsearch(words, r = 20, c = 20, image = banana)
 plot(x, solution = TRUE)
 ```
 
+This lion was hungry.  Can you find the antelope he ate?
+
+```{r wordsearch-lion}
+lion <- "https://us.123rf.com/450wm/miceking/miceking1506/miceking150601500/40903456-stock-vector-lion-silhouette.jpg"
+x <- wordsearch("antelope", r = 40, c = 40, image = lion)
+plot(x, solution = TRUE, letter_size = 2)
+```
+
 ## Crossword Puzzle
 
 Oh, you're one of the more sophicated types that craves a crossword puzzle?  Worrrd.
 
 ```{r}
 words <- row.names(state.x77)
-clues <- paste0(state.region, "ern state covering ", scales::comma(state.x77[, "Area"]), " square miles.")
+clues <- paste0(state.region, " state covering ", scales::comma(state.x77[, "Area"]), " square miles.")
 x <- crossword(words, clues, r = 40, c = 40)
 x
 ```

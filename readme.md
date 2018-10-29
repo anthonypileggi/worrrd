@@ -1,16 +1,10 @@
 
--   [Worrrd](#worrrd)
--   [Install worrrd](#install-worrrd)
--   [Wordsearch](#wordsearch)
-    -   [Custom Shapes](#custom-shapes)
--   [Crossword Puzzle](#crossword-puzzle)
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+worrrd <img src="man/figures/logo.png" align="right" />
+=======================================================
 
-------------------------------------------------------------------------
-
-Worrrd
-------
+Overview
+--------
 
 Build word games using R. Ya hearrrd?
 
@@ -19,8 +13,8 @@ Features:
 -   Crossword Puzzle
 -   Wordsearch
 
-Install worrrd
---------------
+Installation
+------------
 
 ``` r
 install.packages("devtools")
@@ -73,6 +67,18 @@ plot(x, solution = TRUE)
 
 ![](man/figures/README-wordsearch-banana-1.png)
 
+This lion was hungry. Can you find the antelope he ate?
+
+``` r
+lion <- "https://us.123rf.com/450wm/miceking/miceking1506/miceking150601500/40903456-stock-vector-lion-silhouette.jpg"
+x <- wordsearch("antelope", r = 40, c = 40, image = lion)
+#> Warning: partial match of 'status' to 'status_code'
+#> Found positions for 1/1 words.
+plot(x, solution = TRUE, letter_size = 2)
+```
+
+![](man/figures/README-wordsearch-lion-1.png)
+
 Crossword Puzzle
 ----------------
 
@@ -80,13 +86,16 @@ Oh, you're one of the more sophicated types that craves a crossword puzzle? Worr
 
 ``` r
 words <- row.names(state.x77)
-clues <- paste0(state.region, "ern state covering ", scales::comma(state.x77[, "Area"]), " square miles.")
+clues <- paste0(state.region, " state covering ", scales::comma(state.x77[, "Area"]), " square miles.")
 x <- crossword(words, clues, r = 40, c = 40)
-#> Found positions for 50/50 words.
+#> Could not place the following words:
+#> 
+#> LOUISIANA
+#> Found positions for 49/50 words.
 x
 #> Crossword Puzzle
-#> Contains 50 clues.
-#> There are 25 across and 25 down.
+#> Contains 49 clues.
+#> There are 23 across and 26 down.
 ```
 
 ``` r

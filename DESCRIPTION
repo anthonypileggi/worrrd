@@ -1,12 +1,10 @@
-Package: gamer
+Package: worrrd
 Type: Package
-Title: Games for Kids
+Title: Wordsearch and crossword puzzle generator
 Version: 0.1.0
 Author: Anthony Pileggi
 Maintainer: Anthony Pileggi <apileggi20@gmail.com>
-Description: A collection of printable games for kids.
-    Use them to pass time while at a restaurant,
-    because the kids menu isn't how it used to be.
+Description: Wordsearch and crossword puzzle generator
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

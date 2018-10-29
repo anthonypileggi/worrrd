@@ -13,8 +13,8 @@ image_matrix <- function(img = "https://upload.wikimedia.org/wikipedia/commons/9
   img <- magick::image_scale(img, paste0(r,"x", c, "!"))
 
   # convert the image to a black/white matrix representation
-  C <- purrr::map(1:4, ~img[[1]][.x, , ] == "ff")     # white = 'ff ff ff ff'
-  outline <- C[[1]] + C[[2]] + C[[3]] + C[[4]]
-  outline <- outline != 4
+  C <- purrr::map(1:dim(img[[1]])[1], ~img[[1]][.x, , ] == "ff")     # white = 'ff ff ff ff'
+  outline <- Reduce("+", C) / length(C)
+  outline <- outline != 1
   outline
 }

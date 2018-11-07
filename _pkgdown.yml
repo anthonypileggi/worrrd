@@ -1,0 +1,10 @@
+url: https://anthonypileggi.github.io/worrrd/
+
+authors:
+  Anthony Pileggi:
+    href: https://blog.sqwerl.life
+
+template:
+  params:
+    bootswatch: materia
+    ganalytics: UA-114744558-2

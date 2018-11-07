@@ -4,7 +4,8 @@ authors:
   Anthony Pileggi:
     href: https://blog.sqwerl.life
 
+
 template:
   params:
-    bootswatch: materia
+    bootswatch: united
     ganalytics: UA-114744558-2

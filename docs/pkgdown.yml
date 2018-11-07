@@ -3,6 +3,6 @@ pkgdown: 1.1.0
 pkgdown_sha: ~
 articles: []
 urls:
-  reference: https://anthonypileggi.github.io/worrrd//reference
-  article: https://anthonypileggi.github.io/worrrd//articles
+  reference: https://anthonypileggi.github.io/worrrd/reference
+  article: https://anthonypileggi.github.io/worrrd/articles
 

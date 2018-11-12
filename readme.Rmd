@@ -36,7 +36,7 @@ devtools::install_github("anthonypileggi/worrrd")
 Create your very own custom wordsearch!  Worrrd.
 
 ```{r wordsearch-easy}
-library(gamer)
+library(worrrd)
 
 # Simple word search
 words <- c("alligator", "crocodile", "squirrel", "swordfish", "german shepherd", "panda", "wolf")
@@ -71,6 +71,18 @@ lion <- "https://us.123rf.com/450wm/miceking/miceking1506/miceking150601500/4090
 x <- wordsearch("antelope", r = 40, c = 40, image = lion)
 plot(x, solution = TRUE, letter_size = 2)
 ```
+
+OMG so many animals!!  I can't pick just one!!
+
+```{r, wordsearch-animals}
+library(gridExtra)
+animals <- silohettes()[c("giraffe", "rabbit", "bear", "butterfly")]
+puzzles <- purrr::map(animals, ~wordsearch("awesome", r = 40, c = 40, image = .x))
+plots <- purrr::map(puzzles, ~plot(.x, solution = TRUE, letter_size = 2))
+do.call("grid.arrange", c(plots, ncol = 2, nrow = 2))
+```
+
+
 
 ## Crossword Puzzle
 

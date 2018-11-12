@@ -27,7 +27,7 @@ Wordsearch
 Create your very own custom wordsearch! Worrrd.
 
 ``` r
-library(gamer)
+library(worrrd)
 
 # Simple word search
 words <- c("alligator", "crocodile", "squirrel", "swordfish", "german shepherd", "panda", "wolf")
@@ -35,7 +35,6 @@ x <- wordsearch(words, r = 20, c = 20)
 #> Found positions for 7/7 words.
 plot(x, solution = TRUE)
 #> Loading required package: ggplot2
-#> Warning: package 'bindrcpp' was built under R version 3.4.4
 ```
 
 ![](man/figures/README-wordsearch-easy-1.png)
@@ -60,7 +59,7 @@ Wait, what? You want to make it in the shape of a banana? I mean, that's kinda w
 banana <- "https://upload.wikimedia.org/wikipedia/commons/9/96/Tux_Paint_banana.svg"
 words <- c("banana", "apple", "grapes", "orange", "pear", "kumquat")
 x <- wordsearch(words, r = 20, c = 20, image = banana)
-#> Warning in req$status: partial match of 'status' to 'status_code'
+#> Warning: partial match of 'status' to 'status_code'
 #> Found positions for 6/6 words.
 plot(x, solution = TRUE)
 ```
@@ -79,6 +78,26 @@ plot(x, solution = TRUE, letter_size = 2)
 
 ![](man/figures/README-wordsearch-lion-1.png)
 
+OMG so many animals!! I can't pick just one!!
+
+``` r
+library(gridExtra)
+animals <- silohettes()[c("giraffe", "rabbit", "bear", "butterfly")]
+puzzles <- purrr::map(animals, ~wordsearch("awesome", r = 40, c = 40, image = .x))
+#> Warning: partial match of 'status' to 'status_code'
+#> Found positions for 1/1 words.
+#> Warning: partial match of 'status' to 'status_code'
+#> Found positions for 1/1 words.
+#> Warning: partial match of 'status' to 'status_code'
+#> Found positions for 1/1 words.
+#> Warning: partial match of 'status' to 'status_code'
+#> Found positions for 1/1 words.
+plots <- purrr::map(puzzles, ~plot(.x, solution = TRUE, letter_size = 2))
+do.call("grid.arrange", c(plots, ncol = 2, nrow = 2))
+```
+
+![](man/figures/README-wordsearch-animals-1.png)
+
 Crossword Puzzle
 ----------------
 
@@ -90,12 +109,12 @@ clues <- paste0(state.region, " state covering ", scales::comma(state.x77[, "Are
 x <- crossword(words, clues, r = 40, c = 40)
 #> Could not place the following words:
 #> 
-#> LOUISIANA
+#> NORTHCAROLINA
 #> Found positions for 49/50 words.
 x
 #> Crossword Puzzle
 #> Contains 49 clues.
-#> There are 23 across and 26 down.
+#> There are 26 across and 23 down.
 ```
 
 ``` r

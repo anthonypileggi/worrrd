@@ -27,6 +27,9 @@ make_logo <- function() {
     theme_void()
   ggsave("logo.png", width = 1, height = 1)
 
+  # usethis approach
+  #usethis::use_logo("logo.png")
+
   # resize via magick
   img <- magick::image_read("logo.png")
   img <- magick::image_scale(img, "x100")

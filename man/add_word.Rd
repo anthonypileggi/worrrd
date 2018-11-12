@@ -4,7 +4,8 @@
 \alias{add_word}
 \title{Add a word to a word matrix}
 \usage{
-add_word(x, word = "finding", must_intersect = FALSE, shape_matrix = NULL)
+add_word(x, word = "finding", must_intersect = FALSE,
+  shape_matrix = NULL)
 }
 \arguments{
 \item{x}{word matrix}

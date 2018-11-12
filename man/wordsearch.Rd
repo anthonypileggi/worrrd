@@ -4,8 +4,8 @@
 \alias{wordsearch}
 \title{Create a wordsearch puzzle}
 \usage{
-wordsearch(words = c("finding", "needles", "inside", "haystacks"), r = 10,
-  c = 10, image = NULL)
+wordsearch(words = c("finding", "needles", "inside", "haystacks"),
+  r = 10, c = 10, image = NULL)
 }
 \arguments{
 \item{words}{a vector of hidden words (character/vector)}

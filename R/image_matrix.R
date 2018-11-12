@@ -15,6 +15,12 @@ image_matrix <- function(img = "https://upload.wikimedia.org/wikipedia/commons/9
   # convert the image to a black/white matrix representation
   C <- purrr::map(1:dim(img[[1]])[1], ~img[[1]][.x, , ] == "ff")     # white = 'ff ff ff ff'
   outline <- Reduce("+", C) / length(C)
-  outline <- outline != 1
+  if (any(outline == 1)) {
+  #if (all(unique(as.numeric(outline)) %in% c(0, 1))) {
+    outline <- outline != 1          # if colors retained across 4 matrices
+  } else {
+    outline <- outline != 0          # if colors pushed to last matrix (note: why is this happening??)
+  }
+
   outline
 }

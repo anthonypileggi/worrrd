@@ -1,7 +1,7 @@
 Package: worrrd
 Type: Package
 Title: Wordsearch and crossword puzzle generator
-Version: 0.1.0
+Version: 0.0.0.9000
 Author: Anthony Pileggi
 Authors@R: person("Anthony", "Pileggi", role = c("aut", "cre"), email = "apileggi20@gmail.com")
 Maintainer: Anthony Pileggi <apileggi20@gmail.com>

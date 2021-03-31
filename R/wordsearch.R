@@ -27,7 +27,7 @@ wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
   if (!is.null(image))
     shape_matrix <- image_matrix(image, r, c)
 
-  # iteratively add words to the board
+  # add words to the board (one-at-a-time)
   for (i in seq_along(words)) {
     x_new <- add_word(x, words[i], shape_matrix = shape_matrix)
     if (identical(x, x_new))
@@ -49,6 +49,7 @@ wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
     ids <- ids & shape_matrix
   x[ids] <- sample(LETTERS, sum(ids), replace = TRUE)
 
+  # convert to a 'wordsearch' class object
   out <-
     list(
       search = x,
@@ -99,7 +100,7 @@ print.wordsearch <- function(x) {
 #' @param letter_size size of letters (numeric/scalar)
 #' @import ggplot2
 #' @export
-plot.wordsearch <- function(x, solution = FALSE, letter_size = 8) {
+plot.wordsearch <- function(x, solution = FALSE, letter_size = 8, legend_size = 4, title = "") {
   require(ggplot2)
   ids <- expand.grid(i = 1:nrow(x$search), j = 1:ncol(x$search))
   xt <-
@@ -143,7 +144,38 @@ plot.wordsearch <- function(x, solution = FALSE, letter_size = 8) {
         )
   }
 
-  # add a background image
+  # add title
+  if (title != "")
+    g1 <- g1 + ggtitle(title) + theme(plot.title = element_text(hjust = 0.5))
 
-  g1
+  # TODO: add a background image
+
+  # TODO: add words
+  n <- length(x$words)
+  tmp <- dplyr::tibble(
+    i = 1,
+    j = 1:length(x$words),
+    word = x$words
+  )
+  g2 <- tmp %>%
+    ggplot() +
+    #cowplot::ggdraw() +
+    #cowplot::draw_text(x$words, x = 1, y = 1:length(x$words))
+    geom_text(aes(x = i, y = j, label = word), size = legend_size, hjust = "middle") +
+    ggtitle(expression(underline("Word List"))) +
+    theme_void() +
+    ylim(1, max(tmp[["j"]]) + 0.2) +
+    #scale_y_reverse() +
+    #theme(aspect.ratio = ncol(x$search) / nrow(x$search)) +
+    # annotate("rect",
+    #          xmin = 0.5, ymin = 0.5,
+    #          xmax = max(tmp$i) + 0.5, ymax = max(tmp$j) + 0.5,
+    #          alpha = 0, color = "black"
+    # ) +
+    theme(plot.title = element_text(hjust = 0.5))
+
+
+  #gridExtra::grid.arrange(g1, g2)
+  cowplot::plot_grid(g1, g2, nrow = 1, rel_widths = c(3/4, 1/4))
+  #g1
 }

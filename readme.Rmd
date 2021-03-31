@@ -50,7 +50,7 @@ You can make it as hard as you want.  Go bananas!
 # All 50 States
 library(datasets)
 x <- wordsearch(state.name, r = 50, c = 50)
-plot(x, solution = TRUE, letter_size = 2)
+plot(x, solution = TRUE, letter_size = 2, legend_size = 2)
 ```
 
 ### Custom Shapes
@@ -61,7 +61,10 @@ Wait, what?  You want to make it in the shape of a banana?  I mean, that's kinda
 banana <- "https://upload.wikimedia.org/wikipedia/commons/9/96/Tux_Paint_banana.svg"
 words <- c("banana", "apple", "grapes", "orange", "pear", "kumquat")
 x <- wordsearch(words, r = 20, c = 20, image = banana)
-plot(x, solution = TRUE)
+cowplot::ggdraw() +
+  cowplot::draw_image(banana) +
+  cowplot::draw_plot(plot(x, solution = TRUE))
+
 ```
 
 This lion was hungry.  Can you find the antelope he ate?
@@ -72,21 +75,10 @@ x <- wordsearch("antelope", r = 40, c = 40, image = lion)
 plot(x, solution = TRUE, letter_size = 2)
 ```
 
-OMG so many animals!!  I can't pick just one!!
-
-```{r, wordsearch-animals}
-library(gridExtra)
-animals <- silohettes()[c("giraffe", "rabbit", "bear", "butterfly")]
-puzzles <- purrr::map(animals, ~wordsearch("awesome", r = 40, c = 40, image = .x))
-plots <- purrr::map(puzzles, ~plot(.x, solution = TRUE, letter_size = 2))
-do.call("grid.arrange", c(plots, ncol = 2, nrow = 2))
-```
-
-
 
 ## Crossword Puzzle
 
-Oh, you're one of the more sophicated types that craves a crossword puzzle?  Worrrd.
+Oh, you're one of the more sophisticated types that craves a crossword puzzle?  Worrrd.
 
 ```{r}
 words <- row.names(state.x77)

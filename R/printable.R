@@ -1,4 +1,4 @@
-#' Prepare a gamer object for printing
+#' Prepare a worrrd object for printing
 #' @param x ggplot object
 #' @param filename name of file
 #' @export

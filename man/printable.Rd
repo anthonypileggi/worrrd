@@ -2,7 +2,7 @@
 % Please edit documentation in R/printable.R
 \name{printable}
 \alias{printable}
-\title{Prepare a gamer object for printing}
+\title{Prepare a worrrd object for printing}
 \usage{
 printable(x, filename = "plot.pdf")
 }
@@ -12,5 +12,5 @@ printable(x, filename = "plot.pdf")
 \item{filename}{name of file}
 }
 \description{
-Prepare a gamer object for printing
+Prepare a worrrd object for printing
 }

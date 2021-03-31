@@ -4,8 +4,10 @@
 \alias{book}
 \title{Create a wordsearch/crossword book}
 \usage{
-book(input_file = system.file("book.yml", package = "worrrd"),
-  output_file = "book.Rmd")
+book(
+  input_file = system.file("book.yml", package = "worrrd"),
+  output_file = "book.Rmd"
+)
 }
 \arguments{
 \item{input_file}{yaml file containing book details/contents}

@@ -4,9 +4,11 @@
 \alias{image_matrix}
 \title{Convert an image to a 0/1 matrix}
 \usage{
-
-  image_matrix(img = "https://upload.wikimedia.org/wikipedia/commons/9/96/Tux_Paint_banana.svg",
-  r = 10, c = 10)
+image_matrix(
+  img = "https://upload.wikimedia.org/wikipedia/commons/9/96/Tux_Paint_banana.svg",
+  r = 10,
+  c = 10
+)
 }
 \arguments{
 \item{img}{image path}

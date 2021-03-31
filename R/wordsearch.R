@@ -164,8 +164,8 @@ plot.wordsearch <- function(x, solution = FALSE, letter_size = 8, legend_size = 
     geom_text(aes(x = i, y = j, label = word), size = legend_size, hjust = "middle") +
     ggtitle(expression(underline("Word List"))) +
     theme_void() +
-    ylim(1, max(tmp[["j"]]) + 0.2) +
-    #scale_y_reverse() +
+    #ylim(1, max(tmp[["j"]]) + 0.2) +
+    scale_y_reverse(limits = rev(c(1, max(tmp[["j"]]) + 0.2))) +
     #theme(aspect.ratio = ncol(x$search) / nrow(x$search)) +
     # annotate("rect",
     #          xmin = 0.5, ymin = 0.5,

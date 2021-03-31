@@ -1,18 +1,25 @@
 Package: worrrd
 Type: Package
-Title: Wordsearch and crossword puzzle generator
-Version: 0.0.0.9000
-Author: Anthony Pileggi
-Authors@R: person("Anthony", "Pileggi", role = c("aut", "cre"), email = "apileggi20@gmail.com")
-Maintainer: Anthony Pileggi <apileggi20@gmail.com>
-Description: Wordsearch and crossword puzzle generator
-License: GPL-3
+Title: Generate Wordsearch and Crossword Puzzles
+Version: 0.1.0.9000
+Authors@R: c(
+    person("Anthony", "Pileggi", , "apileggi20@gmail.com", c("aut", "cre"))
+    )
+Description: Generate wordsearch and crossword puzzles using
+    custom lists of words (& clues).  Make them easy or hard,
+    and print them for your kids to solve!
+License: MIT + file LICENSE
+URL: https://anthonypileggi.github.io/worrrd,
+    https://github.com/anthonypileggi/worrrd
+BugReports: https://github.com/anthonypileggi/casino/issues
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 Imports:
     ggplot2,
     dplyr,
     tibble,
-    magrittr,
-    shiny
+    magrittr
+Suggests:
+    magick
+VignetteBuilder: knitr

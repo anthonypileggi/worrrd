@@ -83,7 +83,7 @@ is_wordsearch <- function(x) {
 
 # Methods ===================================================================
 
-#' Print a wordsearch puzzle
+#' Print details for a wordsearch puzzle
 #' @export
 print.wordsearch <- function(x) {
   cat(paste("Wordsearch\n"))
@@ -95,12 +95,18 @@ print.wordsearch <- function(x) {
 }
 
 #' Draw a wordsearch puzzle
-#' @param x wordsearch object
+#' @param x wordsearch object (class: wordsearch)
 #' @param solution show solution? (logical/scalar)
-#' @param letter_size size of letters (numeric/scalar)
+#' @param title puzzle title (character/scalar)
+#' @param puzzle_size letter size of puzzle; ignore to auto-size (numeric/scalar)
+#' @param legend_size letter size of word list; set to NULL to auto-size (numeric/scalar)
 #' @import ggplot2
 #' @export
-plot.wordsearch <- function(x, solution = FALSE, letter_size = 8, legend_size = 4, title = "") {
+plot.wordsearch <- function(x,
+                            solution = FALSE,
+                            title = "",
+                            puzzle_size = NULL,
+                            legend_size = NULL) {
   require(ggplot2)
   ids <- expand.grid(i = 1:nrow(x$search), j = 1:ncol(x$search))
   xt <-
@@ -116,18 +122,45 @@ plot.wordsearch <- function(x, solution = FALSE, letter_size = 8, legend_size = 
         )
     )
 
+  # draw wordsearch
   g1 <- xt %>%
     dplyr::filter(!is.na(value)) %>%
-    ggplot() +
-    geom_text(aes(x = i, y = j, label = value), size = letter_size) +
+    ggplot()
+  if (is.null(puzzle_size)) {
+    g1 <- g1 +
+      ggfittext::geom_fit_text(
+        aes(x = i, y = j, label = value),
+        grow = T,
+        min.size = 0
+      )
+  } else {
+    g1 <- g1 +
+      geom_text(
+        aes(x = i, y = j, label = value),
+        size = puzzle_size
+      )
+  }
+  g1 <- g1 +
     scale_y_reverse() +
     theme_void() +
-    theme(aspect.ratio = ncol(x$search) / nrow(x$search))
+    theme(
+      aspect.ratio = ncol(x$search) / nrow(x$search)
+      )
 
-  if (solution)
-    g1 <- g1 + geom_line(aes(x = i, y = j, group = word), color = "red", data = attr(x$search, "positions"))
+  # add solution (upon request)
+  if (solution) {
+    g1 <- g1 +
+      geom_line(
+        aes(x = i, y = j, group = word),
+        color = "red",
+        data = attr(x$search, "positions")
+        )
+  }
 
-  # if using a 'shape_matrix', add the outline; otherwise, add a border
+
+  # use custom shape
+  #  -- if using a 'shape_matrix', add the outline
+  #  -- otherwise, add a border
   if (is.null(x$shape_matrix)) {
     g1 <- g1 +
       annotate("rect",
@@ -144,38 +177,51 @@ plot.wordsearch <- function(x, solution = FALSE, letter_size = 8, legend_size = 
         )
   }
 
-  # add title
-  if (title != "")
-    g1 <- g1 + ggtitle(title) + theme(plot.title = element_text(hjust = 0.5))
+  # add title (upon request)
+  if (title != "") {
+    g1 <- g1 +
+      ggtitle(title) +
+      theme(
+        plot.title = element_text(hjust = 0.5, size = 24, face = "bold")
+      )
+  }
 
   # TODO: add a background image
 
-  # TODO: add words
+  # draw word list
   n <- length(x$words)
   tmp <- dplyr::tibble(
     i = 1,
     j = 1:length(x$words),
     word = x$words
   )
-  g2 <- tmp %>%
-    ggplot() +
-    #cowplot::ggdraw() +
-    #cowplot::draw_text(x$words, x = 1, y = 1:length(x$words))
-    geom_text(aes(x = i, y = j, label = word), size = legend_size, hjust = "middle") +
+  g2 <- ggplot(tmp)
+  if (is.null(legend_size)) {
+    g2 <- g2 +
+      ggfittext::geom_fit_text(
+        aes(x = i, y = j, label = word),
+        reflow = T,
+        grow = F,      # NOTE: grow=T slows this process...
+        min.size = 0
+      )
+  } else {
+    g2 <- g2 +
+      geom_text(
+        aes(x = i, y = j, label = word),
+        size = legend_size,
+        hjust = 0.5
+        )
+  }
+  g2 <- g2 +
     ggtitle(expression(underline("Word List"))) +
     theme_void() +
-    #ylim(1, max(tmp[["j"]]) + 0.2) +
-    scale_y_reverse(limits = rev(c(1, max(tmp[["j"]]) + 0.2))) +
-    #theme(aspect.ratio = ncol(x$search) / nrow(x$search)) +
-    # annotate("rect",
-    #          xmin = 0.5, ymin = 0.5,
-    #          xmax = max(tmp$i) + 0.5, ymax = max(tmp$j) + 0.5,
-    #          alpha = 0, color = "black"
-    # ) +
-    theme(plot.title = element_text(hjust = 0.5))
+    scale_y_reverse() +
+    theme(
+      plot.title = element_text(hjust = 0.5, size = 16, face = "bold")
+      )
 
+  # merge word-search and word-list
+  g <- cowplot::plot_grid(g1, g2, nrow = 1, rel_widths = c(3/4, 1/4))
 
-  #gridExtra::grid.arrange(g1, g2)
-  cowplot::plot_grid(g1, g2, nrow = 1, rel_widths = c(3/4, 1/4))
-  #g1
+  g
 }

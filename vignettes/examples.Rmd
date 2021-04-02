@@ -1,0 +1,99 @@
+---
+title: "Wordsearch Examples"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+   fig.width = 7, 
+  out.width = '100%'
+)
+```
+
+
+## Example 1: Emoji Clues
+
+Credit to [Emil Hvitfeldt](https://www.hvitfeldt.me/blog/real-emojis-in-ggplot2/) for how to put emojis into a gggplot.
+
+```{r setup}
+library(worrrd)
+library(tidyverse)
+library(rvest)
+library(ggtext)
+library(emo)
+
+# fun: convert emoji to link
+emoji_to_link <- function(x) {
+  x %>%
+    emo::ji() %>%
+    paste0("https://emojipedia.org/emoji/", .) %>%
+    read_html() %>%
+    html_nodes("tr td a") %>%
+    .[1] %>%
+    html_attr("href") %>%
+    paste0("https://emojipedia.org/", .) %>%
+    read_html() %>%
+    html_node('div[class="vendor-image"] img') %>%
+    html_attr("src")
+}
+link_to_img <- function(x, size = 25) {
+  paste0("<img src='", x, "' width='", size, "'/>")
+}
+# Create wordsearch data
+df <- 
+  dplyr::tibble(
+    words = c("dog", "cat", "horse", "frog", "cow", "fox")
+  ) %>%
+  dplyr::mutate(
+    url = map_chr(words, slowly(~emoji_to_link(.x), rate_delay(1))),
+    clues = link_to_img(url)
+    )
+
+ex1 <- wordsearch(words = df$words, clues = df$clues)
+
+plot(ex1, title = "Emojis", legend_size = 4)   # set legend_size to force ggtext
+```
+
+
+## Example 2:  Math Problems
+
+```{r}
+
+math <- dplyr::tribble(
+  ~problem,  ~solution,
+  "2 + 2",   "four",
+  "5 + 3",   "eight",
+  "9 - 4",   "five",
+  "1 + 0",   "one",
+  "2 + 1",   "three",
+  "5 + 5",   "ten",
+  "6 - 6",   "zero"
+)
+
+ex2 <- wordsearch(words = math$solution, clues = math$problem)
+plot(ex2, title = "Math is Fun")
+```
+
+## Example 3:  More Math Problems
+```{r}
+library(english)
+df <- dplyr::tibble(
+  n1 = round(20 * runif(20)),
+  n2 = round(20 * runif(20)),
+  sign = sample(c("+", "-"), 20, replace = T),
+  problem = paste(n1, sign, n2),
+  solution = purrr::map_dbl(problem, ~eval(parse(text = .x))),
+  solution_text = as.english(solution)
+) %>%
+  dplyr::filter(
+    solution > 0
+  )
+
+ex3 <- wordsearch(words = df$solution_text, clues = df$problem, r = 15, c = 15)
+plot(ex3, title = "Math is Really Fun", legend_size = 4)

@@ -10,7 +10,9 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+   fig.width = 7, 
+  out.width = '100%'
 )
 ```
 
@@ -53,10 +55,45 @@ df <-
     clues = link_to_img(url)
     )
 
-example <- wordsearch(words = df$words, clues = df$clues)
+ex1 <- wordsearch(words = df$words, clues = df$clues)
 
-plot(example, legend_size = 4)   # set legend_size to force ggtext
+plot(ex1, title = "Emojis", legend_size = 4)   # set legend_size to force ggtext
 ```
 
 
-# Example 2:  Math
+## Example 2:  Math Problems
+
+```{r}
+
+math <- dplyr::tribble(
+  ~problem,  ~solution,
+  "2 + 2",   "four",
+  "5 + 3",   "eight",
+  "9 - 4",   "five",
+  "1 + 0",   "one",
+  "2 + 1",   "three",
+  "5 + 5",   "ten",
+  "6 - 6",   "zero"
+)
+
+ex2 <- wordsearch(words = math$solution, clues = math$problem)
+plot(ex2, title = "Math is Fun")
+```
+
+## Example 3:  More Math Problems
+```{r}
+library(english)
+df <- dplyr::tibble(
+  n1 = round(20 * runif(20)),
+  n2 = round(20 * runif(20)),
+  sign = sample(c("+", "-"), 20, replace = T),
+  problem = paste(n1, sign, n2),
+  solution = purrr::map_dbl(problem, ~eval(parse(text = .x))),
+  solution_text = as.english(solution)
+) %>%
+  dplyr::filter(
+    solution > 0
+  )
+
+ex3 <- wordsearch(words = df$solution_text, clues = df$problem, r = 15, c = 15)
+plot(ex3, title = "Math is Really Fun", legend_size = 4)

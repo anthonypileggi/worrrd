@@ -1,10 +1,12 @@
 #' Create a wordsearch puzzle
 #' @param words a vector of hidden words (character/vector)
+#' @param clues a vector of word clues (optional; character/vector)
 #' @param r number of rows
 #' @param c number of columns
 #' @param image path to an image that the resulting grid should look like.NULL for no shape
 #' @export
 wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
+                       clues = words,
                        r = 10,
                        c = 10,
                        image = NULL) {
@@ -54,6 +56,7 @@ wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
     list(
       search = x,
       words = words,
+      clues = clues,
       solution = solution,
       image = image,
       shape_matrix = shape_matrix
@@ -90,6 +93,7 @@ print.wordsearch <- function(x) {
   cat(paste("Rows:", nrow(x$search), "\n"))
   cat(paste("Columns:", ncol(x$search), "\n"))
   cat(paste("Hidden Words:", length(x$words), "\n"))
+  cat(paste("Clues:", ifelse(!identical(prepare_words(x$words), prepare_words(x$clues)), "No", "Yes"), "\n"))
   cat(paste("Custom Shape:", ifelse(is.null(x$shape_matrix), "No", "Yes"), "\n"))
   invisible(x)
 }
@@ -97,6 +101,7 @@ print.wordsearch <- function(x) {
 #' Draw a wordsearch puzzle
 #' @param x wordsearch object (class: wordsearch)
 #' @param solution show solution? (logical/scalar)
+#' @param clues show clues? (logical/scalar)
 #' @param title puzzle title (character/scalar)
 #' @param puzzle_size letter size of puzzle; ignore to auto-size (numeric/scalar)
 #' @param legend_size letter size of word list; set to NULL to auto-size (numeric/scalar)
@@ -104,6 +109,7 @@ print.wordsearch <- function(x) {
 #' @export
 plot.wordsearch <- function(x,
                             solution = FALSE,
+                            clues = TRUE,
                             title = "",
                             puzzle_size = NULL,
                             legend_size = NULL) {
@@ -188,40 +194,46 @@ plot.wordsearch <- function(x,
 
   # TODO: add a background image
 
-  # draw word list
-  n <- length(x$words)
-  tmp <- dplyr::tibble(
-    i = 1,
-    j = 1:length(x$words),
-    word = x$words
-  )
-  g2 <- ggplot(tmp)
-  if (is.null(legend_size)) {
-    g2 <- g2 +
-      ggfittext::geom_fit_text(
-        aes(x = i, y = j, label = word),
-        reflow = T,
-        grow = F,      # NOTE: grow=T slows this process...
-        min.size = 0
-      )
-  } else {
-    g2 <- g2 +
-      geom_text(
-        aes(x = i, y = j, label = word),
-        size = legend_size,
-        hjust = 0.5
+  # draw word list; merge with puzzle
+  if (clues) {
+    tmp <- dplyr::tibble(
+      i = 1,
+      j = 1:length(x$clues),
+      word = x$clues
+    )
+    g2 <- ggplot(tmp)
+    if (is.null(legend_size)) {
+      g2 <- g2 +
+        ggfittext::geom_fit_text(
+          aes(x = i, y = j, label = word),
+          reflow = T,
+          grow = F,      # NOTE: grow=T slows this process...
+          min.size = 0
         )
-  }
-  g2 <- g2 +
-    ggtitle(expression(underline("Word List"))) +
-    theme_void() +
-    scale_y_reverse() +
-    theme(
-      plot.title = element_text(hjust = 0.5, size = 16, face = "bold")
+    } else {
+      g2 <- g2 +
+        # geom_text(
+        #   aes(x = i, y = j, label = word),
+        #   size = legend_size,
+        #   hjust = 0.5
+        # )
+        geom_richtext(
+          aes(x = i, y = j, label = word),
+          fill = NA,
+          size = legend_size,
+          label.color = NA,  # remove background and outline
+          label.padding = grid::unit(rep(0, 4), "pt")  # remove padding
+        )
+    }
+    g2 <- g2 +
+      ggtitle(expression(underline("Word List"))) +
+      theme_void() +
+      scale_y_reverse() +
+      theme(
+        plot.title = element_text(hjust = 0.5, size = 16, face = "bold")
       )
+    g1 <- cowplot::plot_grid(g1, g2, nrow = 1, rel_widths = c(3/4, 1/4))
+  }
 
-  # merge word-search and word-list
-  g <- cowplot::plot_grid(g1, g2, nrow = 1, rel_widths = c(3/4, 1/4))
-
-  g
+  g1
 }

@@ -26,5 +26,6 @@ Imports:
 Suggests:
     magick,
     emoji,
-    rvest
+    rvest,
+    english
 VignetteBuilder: knitr

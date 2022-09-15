@@ -217,7 +217,7 @@ plot.wordsearch <- function(x,
         #   size = legend_size,
         #   hjust = 0.5
         # )
-        geom_richtext(
+        ggtext::geom_richtext(
           aes(x = i, y = j, label = word),
           fill = NA,
           size = legend_size,

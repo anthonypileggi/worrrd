@@ -19,7 +19,11 @@ Imports:
     ggplot2,
     dplyr,
     tibble,
-    magrittr
+    magrittr,
+    ggtext,
+    ggfittext
 Suggests:
-    magick
+    magick,
+    emoji,
+    rvest
 VignetteBuilder: knitr

@@ -26,21 +26,21 @@ library(worrrd)
 library(tidyverse)
 library(rvest)
 library(ggtext)
-library(emo)
+library(emoji)
 
 # fun: convert emoji to link
 emoji_to_link <- function(x) {
   x %>%
-    emo::ji() %>%
+    emoji::emoji() %>%
     paste0("https://emojipedia.org/emoji/", .) %>%
-    read_html() %>%
-    html_nodes("tr td a") %>%
+    rvest::read_html() %>%
+    rvest::html_nodes("tr td a") %>%
     .[1] %>%
-    html_attr("href") %>%
+    rvest::html_attr("href") %>%
     paste0("https://emojipedia.org/", .) %>%
-    read_html() %>%
-    html_node('div[class="vendor-image"] img') %>%
-    html_attr("src")
+    xml2::read_html() %>%
+    rvest::html_node('div[class="vendor-image"] img') %>%
+    rvest::html_attr("src")
 }
 link_to_img <- function(x, size = 25) {
   paste0("<img src='", x, "' width='", size, "'/>")

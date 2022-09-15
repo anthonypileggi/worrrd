@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 ## Example 1: Emoji Clues
 
-Credit to [Emil Hvitfeldt](https://www.hvitfeldt.me/blog/real-emojis-in-ggplot2/) for how to put emojis into a gggplot.
+Credit to [Emil Hvitfeldt](https://www.hvitfeldt.me/blog/real-emojis-in-ggplot2/) for how to put emojis into a ggplot.
 
 ```{r setup}
 library(worrrd)

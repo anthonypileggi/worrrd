@@ -17,18 +17,30 @@ knitr::opts_chunk$set(
 ```
 
 
-## Example 1: Emoji Clues
+## Example 1: Basic Wordsearch
 
-Credit to [Emil Hvitfeldt](https://www.hvitfeldt.me/blog/real-emojis-in-ggplot2/) for how to put emojis into a ggplot.
+Let's start off with creating a basic wordsearch.
 
-```{r setup}
+```{r setup, message=FALSE, warning=FALSE}
 library(worrrd)
 library(tidyverse)
 library(rvest)
 library(ggtext)
 library(emoji)
+```
 
-# fun: convert emoji to link
+```{r}
+words <- c("dog", "cat", "horse", "frog", "cow", "fox")
+ex1 <- wordsearch(words, r = 10, c = 10)
+plot(ex1, solution = T)
+```
+
+## Example 2: Emoji Clues
+
+Now we'll introduce the `clues` parameter.  This is useful if you want to show something different than the actual word in the search list.  In this example we'll use the same list of words, but show the emojis as the `clues`.  Credit to [Emil Hvitfeldt](https://www.hvitfeldt.me/blog/real-emojis-in-ggplot2/) for how to put emojis into a ggplot.
+
+```{r}
+# Function to convert emoji to link
 emoji_to_link <- function(x) {
   x %>%
     emoji::emoji() %>%
@@ -45,6 +57,7 @@ emoji_to_link <- function(x) {
 link_to_img <- function(x, size = 25) {
   paste0("<img src='", x, "' width='", size, "'/>")
 }
+
 # Create wordsearch data
 df <- 
   dplyr::tibble(
@@ -55,16 +68,17 @@ df <-
     clues = link_to_img(url)
     )
 
-ex1 <- wordsearch(words = df$words, clues = df$clues)
-
-plot(ex1, title = "Emojis", legend_size = 4)   # set legend_size to force ggtext
+# Build + plot
+ex2 <- wordsearch(words = df$words, clues = df$clues)
+plot(ex2, solution = T, title = "Emojis", legend_size = 4)   # set legend_size to force ggtext
 ```
 
 
-## Example 2:  Math Problems
+## Example 3:  Math Problems
+
+You can get creative with the `clues`.  In this example we'll create a wordsearch that requires the user to complete the math problems before finding the words.
 
 ```{r}
-
 math <- dplyr::tribble(
   ~problem,  ~solution,
   "2 + 2",   "four",
@@ -76,11 +90,14 @@ math <- dplyr::tribble(
   "6 - 6",   "zero"
 )
 
-ex2 <- wordsearch(words = math$solution, clues = math$problem)
-plot(ex2, title = "Math is Fun")
+ex3 <- wordsearch(words = math$solution, clues = math$problem)
+plot(ex3, solution = T, title = "Math is Fun")
 ```
 
-## Example 3:  More Math Problems
+## Example 4:  More Math Problems
+
+Here we create more math problems randomly, and then use the `english` package to automatically convert the numeric solutions into words that are then placed into the puzzle.
+
 ```{r}
 library(english)
 df <- dplyr::tibble(
@@ -95,5 +112,6 @@ df <- dplyr::tibble(
     solution > 0
   )
 
-ex3 <- wordsearch(words = df$solution_text, clues = df$problem, r = 15, c = 15)
-plot(ex3, title = "Math is Really Fun", legend_size = 4)
+ex4 <- wordsearch(words = df$solution_text, clues = df$problem, r = 15, c = 15)
+plot(ex4, solution = T, title = "Math is Really Fun", legend_size = 4)
+```

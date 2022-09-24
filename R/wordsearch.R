@@ -17,8 +17,15 @@ wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
   # prepare the word list
   words <- prepare_words(words)
 
+
   # check conditions
-  words <- words[nchar(words) <= max(c(r, c))]    # remove words that won't fit
+  # -- do not allow duplicates in word list
+  if (any(duplicated(words)))
+    stop("Must provide a set of words without duplicates.")
+  # -- remove words that won't fit
+  id <- nchar(words) <= max(c(r, c))
+  words <- words[id]
+  clues <- clues[id]
   if (length(words) == 0) {
     message("No words can be placed.  Try a larger grid-size, or shorter words.")
     return(NULL)
@@ -38,6 +45,7 @@ wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
   }
 
   # update word list (based on what was placed)
+  # TODO -- Fix issue w/ duplicate words --------------------------------------
   new_words <- unique(attr(x, "positions")$word)
   message(paste0("Found positions for ", length(new_words), "/", length(words), " words."))
   words <- new_words

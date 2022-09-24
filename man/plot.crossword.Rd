@@ -4,7 +4,13 @@
 \alias{plot.crossword}
 \title{Plot a crossword puzzle}
 \usage{
-\method{plot}{crossword}(x, solution = FALSE, clues = FALSE, title = "Crossword Puzzle")
+\method{plot}{crossword}(
+  x,
+  solution = FALSE,
+  clues = FALSE,
+  title = "Crossword Puzzle",
+  legend_size = 4
+)
 }
 \arguments{
 \item{x}{a crossword object (see \code{\link{crossword}})}

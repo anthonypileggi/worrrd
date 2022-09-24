@@ -4,7 +4,7 @@
 \alias{crossword}
 \title{Create a crossword puzzle}
 \usage{
-crossword(words, clues, r = 50, c = 50)
+crossword(words, clues, r = 50, c = 50, method = c("optimal", "random"))
 }
 \arguments{
 \item{words}{a vector of words (character/vector)}
@@ -14,6 +14,9 @@ crossword(words, clues, r = 50, c = 50)
 \item{r}{number of rows (numeric/scalar)}
 
 \item{c}{number of columns (numeric/scalar)}
+
+\item{method}{generate puzzle using 'optimal' or 'random' word order, where
+the optimal order will place words with the most overlap first}
 }
 \description{
 Create a crossword puzzle

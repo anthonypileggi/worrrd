@@ -2,10 +2,10 @@
 % Please edit documentation in R/wordsearch.R
 \name{print.wordsearch}
 \alias{print.wordsearch}
-\title{Print a wordsearch puzzle}
+\title{Print details for a wordsearch puzzle}
 \usage{
 \method{print}{wordsearch}(x)
 }
 \description{
-Print a wordsearch puzzle
+Print details for a wordsearch puzzle
 }

@@ -6,6 +6,7 @@
 \usage{
 wordsearch(
   words = c("finding", "needles", "inside", "haystacks"),
+  clues = words,
   r = 10,
   c = 10,
   image = NULL
@@ -13,6 +14,8 @@ wordsearch(
 }
 \arguments{
 \item{words}{a vector of hidden words (character/vector)}
+
+\item{clues}{a vector of word clues (optional; character/vector)}
 
 \item{r}{number of rows}
 

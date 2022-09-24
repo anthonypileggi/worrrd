@@ -4,14 +4,27 @@
 \alias{plot.wordsearch}
 \title{Draw a wordsearch puzzle}
 \usage{
-\method{plot}{wordsearch}(x, solution = FALSE, letter_size = 8)
+\method{plot}{wordsearch}(
+  x,
+  solution = FALSE,
+  clues = TRUE,
+  title = "",
+  puzzle_size = NULL,
+  legend_size = NULL
+)
 }
 \arguments{
-\item{x}{wordsearch object}
+\item{x}{wordsearch object (class: wordsearch)}
 
 \item{solution}{show solution? (logical/scalar)}
 
-\item{letter_size}{size of letters (numeric/scalar)}
+\item{clues}{show clues? (logical/scalar)}
+
+\item{title}{puzzle title (character/scalar)}
+
+\item{puzzle_size}{letter size of puzzle; ignore to auto-size (numeric/scalar)}
+
+\item{legend_size}{letter size of word list; set to NULL to auto-size (numeric/scalar)}
 }
 \description{
 Draw a wordsearch puzzle

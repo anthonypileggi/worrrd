@@ -3,21 +3,29 @@
 #' @param clues a vector a clues (character/vector)
 #' @param r number of rows (numeric/scalar)
 #' @param c number of columns (numeric/scalar)
+#' @param method generate puzzle using 'optimal' or 'random' word order, where
+#'               the optimal order will place words with the most overlap first
 #' @importFrom magrittr "%>%"
 #' @export
 crossword <- function(words,
                       clues,
                       r = 50,
-                      c = 50) {
+                      c = 50,
+                      method = c("optimal", "random")) {
 
   # check inputs
   if (length(words) != length(clues))
     stop("Invalid input: `words` and `clues` must have the same length.")
+  method <- match.arg(method)
 
   # prepare word list
   #   - uppercase everything; ignore spaces
-  words <- prepare_words(words)
+  words <- worrrd:::prepare_words(words)
   n <- length(words)
+
+  # -- do not allow duplicates/repeats in word list
+  if (any(duplicated(words)))
+    stop("Must provide a set of words without duplicates.")
 
   # save clues for use later
   df <- tibble::tibble(word = words, clue = clues)
@@ -27,15 +35,26 @@ crossword <- function(words,
   # create empty matrix to store crossword
   x <- matrix(NA, nrow = r, ncol = c)
 
-  # iteratively add words to the board
+  # TODO: compute word overlap (for optimizing the order words are placed)
+
+
+  # iterate: add words to the board
   #   - force words to be intersecting after placing the first word
   #     TODO: place first word in board center
   #   - each time a word is added, reshuffle the remaining words
   #   - if no word can be placed after a reshuffle, give up (i.e., break loop)
   while (length(words) > 0) {
     word_added <- FALSE
-    for (word in sample(words)) {
-      x <- add_word(x, word, must_intersect = n > length(words))
+    if (method == "optimal") {
+      wts <- worrrd:::word_overlap(words)
+      ids <- rank(-wts, ties.method = "first")
+      words <- words[ids]
+    } else {
+      words <- sample(words)
+    }
+
+    for (word in words) {
+      x <- worrrd:::add_word(x, word, must_intersect = n > length(words))
       if (word %in% unique(attr(x, "positions")$word)) {
         words <- setdiff(words, word)
         word_added <- TRUE
@@ -51,9 +70,25 @@ crossword <- function(words,
     message(paste0("Could not place the following words:\n\n", paste0(words, collapse = "\n")))
   message(paste0("Found positions for ", n - length(words), "/", n, " words."))
 
-  # TODO: trim matrix padding
+  # # TODO: trim matrix padding
+  # p <- attr(x, "positions")
+  # row_range <- range(p$i)
+  # minr <- min(p$i) - 1
+  # maxr <- max(p$i) + 1
+  # minc <- min(p$j) - 1
+  # maxc <- max(p$j) + 1
+  # x[minr:maxr, minc:maxc]  # trim matrix
+  #
+  # p %>%
+  #   dplyr::mutate(
+  #     i = i - minr + 1,
+  #     j = j - minc + 1
+  #   )
+  # #  -- how to adjust 'id'?
+  # #  -- how to deal with words on edges?
 
   # add clues
+  # TODO: account for duplicate words (which is allowed)
   attr(x, "clues") <- attr(x, "positions") %>%
     dplyr::group_by(word) %>%
     dplyr::slice(1) %>%
@@ -103,11 +138,15 @@ print.crossword <- function(x) {
 #' @param solution show solution? (logical/scalar)
 #' @param clues show clues? (logical/scalar)
 #' @export
-plot.crossword <- function(x, solution = FALSE, clues = FALSE, title = "Crossword Puzzle") {
+plot.crossword <- function(x,
+                           solution = FALSE,
+                           clues = FALSE,
+                           title = "Crossword Puzzle",
+                           legend_size = 4) {
   require(ggplot2)
   g1 <- ggplot(attr(x, "positions")) +
-    geom_tile(aes(x = i, y = j, group = word), color = "black", fill = "white", alpha = 1) +
-    geom_text(aes(x = i, y = j, label = n), size = 2, nudge_y = .35, nudge_x = -.35, color = "black", data = attr(x, "clues")) +
+    geom_tile(aes(x = j, y = i, group = word), color = "black", fill = "white", alpha = 1) +
+    geom_text(aes(x = j, y = i, label = n), size = 2, nudge_y = .35, nudge_x = -.35, color = "black", data = attr(x, "clues")) +
     ggtitle(title) +
     scale_y_reverse() +
     theme_void() +
@@ -118,25 +157,39 @@ plot.crossword <- function(x, solution = FALSE, clues = FALSE, title = "Crosswor
       )
 
   if (solution)
-    g1 <- g1 + geom_text(aes(x = i, y = j, label = letters), color = "red")
+    g1 <- g1 + geom_text(aes(x = j, y = i, label = letters), color = "red")
 
   if (clues) {
-    gc <-
+    g2 <-
       purrr::map(
         c("Across", "Down"),
-        ~attr(x, "clues") %>%
+        function(d) {
+          xt <- attr(x, "clues") %>%
           dplyr::mutate(
             clue = paste0(n, ". ", clue)
           ) %>%
-          dplyr::filter(dir == "across") %>%
-          ggplot(aes(x = 1, y = n)) +
-          geom_text(aes(label = clue), hjust = 0) +
-          annotate("text", x = 1, y = 0, label = paste0("underline(bold(", .x, "))"), parse = TRUE) +
+          dplyr::filter(
+            dir == tolower(d)
+            )
+          nn <- max(xt$n)
+          ggplot(xt) +
+          # ggtext::geom_richtext(
+          #   aes(x = 1, y = n, label = clue),
+          #   fill = NA,
+          #   size = legend_size,
+          #   label.color = NA,  # remove background and outline
+          #   label.padding = grid::unit(rep(0, 4), "pt")  # remove padding
+          # ) +
+          geom_text(aes(x = 1, y = n, label = clue), hjust = 0, size = legend_size) +
+          annotate("text", x = 1, y = 0, label = paste0("underline(bold(", toupper(d), "))"), parse = TRUE) +
           theme_void() +
           scale_y_reverse() +
-          xlim(1, 1.5)
+          xlim(.8, 1.5)
+        }
       )
-    g1 <- gridExtra::grid.arrange(g1, gc[[1]], gc[[2]], layout_matrix = rbind(c(1, 2), c(1, 3)))
+    g3 <- cowplot::plot_grid(g2[[1]], g2[[2]], nrow = 2, rel_widths = c(1, 1))
+    g1 <- cowplot::plot_grid(g1, g3, nrow = 1, rel_widths = c(3/4, 1/4))
+    #g1 <- gridExtra::grid.arrange(g1, gc[[1]], gc[[2]], layout_matrix = rbind(c(1, 2), c(1, 3)))
   }
 
   g1

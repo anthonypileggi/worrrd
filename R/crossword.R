@@ -20,12 +20,21 @@ crossword <- function(words,
 
   # prepare word list
   #   - uppercase everything; ignore spaces
-  words <- worrrd:::prepare_words(words)
+  words <- prepare_words(words)
   n <- length(words)
 
   # -- do not allow duplicates/repeats in word list
   if (any(duplicated(words)))
     stop("Must provide a set of words without duplicates.")
+
+  # -- remove words that won't fit
+  id <- nchar(words) <= max(c(r, c))
+  words <- words[id]
+  clues <- clues[id]
+  if (length(words) == 0) {
+    message("No words can be placed.  Try a larger grid-size, or shorter words.")
+    return(NULL)
+  }
 
   # save clues for use later
   df <- tibble::tibble(word = words, clue = clues)
@@ -34,9 +43,6 @@ crossword <- function(words,
 
   # create empty matrix to store crossword
   x <- matrix(NA, nrow = r, ncol = c)
-
-  # TODO: compute word overlap (for optimizing the order words are placed)
-
 
   # iterate: add words to the board
   #   - force words to be intersecting after placing the first word

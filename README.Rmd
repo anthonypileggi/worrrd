@@ -33,7 +33,7 @@ devtools::install_github("anthonypileggi/worrrd")
 
 ## Wordsearch
 
-Create your very own custom wordsearch!  Worrrd.
+Create your very own custom word search!  Worrrd.
 
 ```{r wordsearch-easy}
 library(worrrd)

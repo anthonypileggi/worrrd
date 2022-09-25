@@ -27,7 +27,7 @@ library(emoji)
 ```{r}
 words <- c("dog", "cat", "horse", "frog", "cow", "fox")
 ex1 <- wordsearch(words, r = 10, c = 10)
-plot(ex1, solution = T)
+plot(ex1, solution = TRUE)
 ```
 
 ## Example 2: Emoji Clues
@@ -67,7 +67,7 @@ dat <-
 
 # Build + plot
 ex2 <- wordsearch(words = dat$words, clues = dat$clues)
-plot(ex2, solution = T, title = "Emojis", legend_size = 4)   # set legend_size to force ggtext
+plot(ex2, solution = TRUE, title = "Emojis", legend_size = 4)   # set legend_size to force ggtext
 ```
 
 
@@ -89,7 +89,7 @@ math <- dplyr::tribble(
 )
 
 ex3 <- wordsearch(words = math$solution, clues = math$problem)
-plot(ex3, solution = T, title = "Math is Fun")
+plot(ex3, solution = TRUE, title = "Math is Fun")
 ```
 
 ## Example 4:  More Math Problems
@@ -113,7 +113,7 @@ dat <- dplyr::tibble(
   )
 
 ex4 <- wordsearch(words = dat$solution_text, clues = dat$problem, r = 15, c = 15)
-plot(ex4, solution = T, title = "Math is Really Fun", legend_size = 4)
+plot(ex4, solution = TRUE, title = "Math is Really Fun", legend_size = 4)
 ```
 
 ## Example 5: Custom Shapes (⚠️ Experimental)

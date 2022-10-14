@@ -27,5 +27,7 @@ Suggests:
     magick,
     emoji,
     rvest,
-    english
+    english,
+    knitr,
+    rmarkdown
 VignetteBuilder: knitr

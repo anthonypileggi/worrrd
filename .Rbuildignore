@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 ^\.secret$
 ^README\.Rmd$
+^vignettes/articles$

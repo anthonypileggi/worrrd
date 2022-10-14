@@ -1,9 +1,11 @@
-#' Create a wordsearch/crossword book
+#' Create a puzzle book
 #' @param input_file yaml file containing book details/contents
-#' @param output_file full path to output file
+#' @param output_file full path to output file (with .pdf extension)
+#' @param solutions include solutions (logical/scalar)
 #' @export
 book <- function(input_file = system.file("book.yml", package = "worrrd"),
-                 output_file = "book.Rmd") {
+                 output_file = "book.pdf",
+                 solutions = TRUE) {
 
   # load content
   p <- yaml::read_yaml(input_file)
@@ -62,7 +64,7 @@ rmd_content <-
       glue::glue(.open = "..", .close = "..",
 '# `r p$pages[[..i..]]$name`
 ```{r}
-plot(out[[..i..]], solution = TRUE)
+plot(out[[..i..]], solution = FALSE)
 ```
 
 \\newpage
@@ -71,13 +73,34 @@ plot(out[[..i..]], solution = TRUE)
         )
     })
 
-  writeLines(c(rmd_header, rmd_prelims, rmd_cover, rmd_content), con = output_file)
+if (solutions == T) {
+  rmd_solutions <-
+    purrr::map_chr(
+      1:length(p$pages),
+      function(i) {
+        glue::glue(.open = "..", .close = "..",
+                   '# `r p$pages[[..i..]]$name` SOLUTION
+```{r}
+plot(out[[..i..]], solution = TRUE)
+```
+
+\\newpage
+
+'
+        )
+      })
+  rmd_content <- c(rmd_content, rmd_solutions)
+}
+
+
+
+  rmd_file <- tempfile(fileext = ".Rmd")
+  writeLines(c(rmd_header, rmd_prelims, rmd_cover, rmd_content), con = rmd_file)
 
   # render as pdf
-  pdf_file <- stringr::str_replace(output_file, ".Rmd", ".pdf")
-  rmarkdown::render(output_file, output_file = pdf_file)
-  unlink(output_file)
+  rmarkdown::render(rmd_file, output_dir = getwd(), output_file = output_file, quiet = TRUE)
+  unlink(rmd_file)
   message("New book can be found at ", output_file, ".")
 
-  return(pdf_file)
+  return(output_file)
 }

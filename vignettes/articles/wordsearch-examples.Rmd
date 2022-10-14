@@ -1,5 +1,5 @@
 ---
-title: "Word search examples"
+title: "Wordsearch Examples"
 ---
 
 ```{r, include = FALSE}
@@ -12,9 +12,9 @@ knitr::opts_chunk$set(
 ```
 
 
-## Example 1: Basic Word search
+## Example 1: Basic Wordsearch
 
-Let's start off with creating a basic word search.
+Let's start off with creating a basic wordsearch.
 
 ```{r setup, message=FALSE, warning=FALSE}
 library(worrrd)
@@ -40,48 +40,9 @@ ex2 <- wordsearch(words = words, clues = clues)
 plot(ex2, solution = T, title = "Animal Sounds", legend_size = 4)   # set legend_size to force ggtext
 ```
 
-<!-- ## Example 2: Emoji Clues -->
-
-<!-- Now we'll introduce the `clues` parameter.  This is useful if you want to show something different than the actual word in the search list.  In this example we'll use the same list of words, but show the emojis as the `clues`.  Credit to [Emil Hvitfeldt](https://www.hvitfeldt.me/blog/real-emojis-in-ggplot2/) for how to put emojis into a ggplot. -->
-
-<!-- ```{r} -->
-<!-- # Function to convert emoji to link -->
-<!-- emoji_to_link <- function(x) { -->
-<!--   x %>% -->
-<!--     emoji::emoji() %>% -->
-<!--     paste0("https://emojipedia.org/emoji/", .) %>% -->
-<!--     rvest::read_html() %>% -->
-<!--     rvest::html_nodes("tr td a") %>% -->
-<!--     .[1] %>% -->
-<!--     rvest::html_attr("href") %>% -->
-<!--     paste0("https://emojipedia.org/", .) %>% -->
-<!--     xml2::read_html() %>% -->
-<!--     rvest::html_node('div[class="vendor-image"] img') %>% -->
-<!--     rvest::html_attr("src") -->
-<!-- } -->
-<!-- link_to_img <- function(x, size = 25) { -->
-<!--   paste0("<img src='", x, "' width='", size, "'/>") -->
-<!-- } -->
-
-<!-- # Create wordsearch data -->
-<!-- df <- -->
-<!--   dplyr::tibble( -->
-<!--     words = c("dog", "cat", "horse", "frog", "cow", "fox") -->
-<!--   ) %>% -->
-<!--   dplyr::mutate( -->
-<!--     url = map_chr(words, slowly(~emoji_to_link(.x), rate_delay(1))), -->
-<!--     clues = link_to_img(url) -->
-<!--     ) -->
-
-<!-- # Build + plot -->
-<!-- ex2 <- wordsearch(words = df$words, clues = df$clues) -->
-<!-- plot(ex2, solution = T, title = "Emojis", legend_size = 4)   # set legend_size to force ggtext -->
-<!-- ``` -->
-
-
 ## Example 3:  Math Problems
 
-You can get creative with the `clues`.  In this example we'll create a word search 
+You can get creative with the `clues`.  In this example we'll create a wordsearch 
 that requires the user to complete the math problems before finding the words.
 
 ```{r}
@@ -123,15 +84,52 @@ ex4 <- wordsearch(words = dat$solution_text, clues = dat$problem, r = 15, c = 15
 plot(ex4, solution = TRUE, title = "Math is Really Fun", legend_size = 4)
 ```
 
+<!-- ## Example 5: Emoji Clues -->
+
+<!-- Now we'll introduce the `clues` parameter.  This is useful if you want to show something different than the actual word in the search list.  In this example we'll use the same list of words, but show the emojis as the `clues`.  Credit to [Emil Hvitfeldt](https://www.hvitfeldt.me/blog/real-emojis-in-ggplot2/) for how to put emojis into a ggplot. -->
+
+<!-- ```{r} -->
+<!-- # Function to convert emoji to link -->
+<!-- emoji_to_link <- function(x) { -->
+<!--   x %>% -->
+<!--     emoji::emoji() %>% -->
+<!--     paste0("https://emojipedia.org/emoji/", .) %>% -->
+<!--     rvest::read_html() %>% -->
+<!--     rvest::html_nodes("tr td a") %>% -->
+<!--     .[1] %>% -->
+<!--     rvest::html_attr("href") %>% -->
+<!--     paste0("https://emojipedia.org/", .) %>% -->
+<!--     xml2::read_html() %>% -->
+<!--     rvest::html_node('div[class="vendor-image"] img') %>% -->
+<!--     rvest::html_attr("src") -->
+<!-- } -->
+<!-- link_to_img <- function(x, size = 25) { -->
+<!--   paste0("<img src='", x, "' width='", size, "'/>") -->
+<!-- } -->
+
+<!-- # Create wordsearch data -->
+<!-- df <- -->
+<!--   dplyr::tibble( -->
+<!--     words = c("dog", "cat", "horse", "frog", "cow", "fox") -->
+<!--   ) %>% -->
+<!--   dplyr::mutate( -->
+<!--     url = map_chr(words, slowly(~emoji_to_link(.x), rate_delay(1))), -->
+<!--     clues = link_to_img(url) -->
+<!--     ) -->
+
+<!-- # Build + plot -->
+<!-- ex2 <- wordsearch(words = df$words, clues = df$clues) -->
+<!-- plot(ex2, solution = T, title = "Emojis", legend_size = 4)   # set legend_size to force ggtext -->
+<!-- ``` -->
+
 ## Example 5: Custom Shapes (⚠️ Experimental)
 
 Wait, what?  You want to make it in the shape of a banana?  I mean, that's kinda weird... but why not!
 
 _Note:_ A new, random search is generated each time you submit the command. If the 
-words do not fit well, try regenerating the word search.
+words do not fit well, try regenerating the wordsearch.
 
 ```{r wordsearch-banana}
-library(cowplot)
 banana <- "https://upload.wikimedia.org/wikipedia/commons/9/96/Tux_Paint_banana.svg"
 words <- c("banana", "apple", "grapes", "orange", "pear", "kumquat")
 ex5 <- wordsearch(words, r = 20, c = 20, image = banana)
@@ -141,10 +139,10 @@ plot(ex5, solution = TRUE)
 Or try overlaying your image with the search.
 
 ```{r wordsearch-banana-overlay}
-cowplot::ggdraw() +
-  cowplot::draw_image(banana) +
-  cowplot::draw_plot(plot(x, solution = TRUE))
-
+library(cowplot)
+ggdraw() +
+  draw_image(banana) +
+  draw_plot(plot(ex5, solution = TRUE))
 ```
 
 

@@ -21,12 +21,12 @@ devtools::install_github("anthonypileggi/worrrd")
 
 ## Wordsearch
 
-Create your very own custom word search! Worrrd.
+Create your very own custom wordsearch! Worrrd.
 
 ``` r
 library(worrrd)
 
-# Simple word search
+# Simple wordsearch
 words <- c("alligator", "crocodile", "squirrel", "swordfish", "german shepherd", "panda", "wolf")
 x <- wordsearch(words, r = 20, c = 20)
 #> Found positions for 7/7 words.
@@ -61,7 +61,7 @@ x <- crossword(words, clues, r = 40, c = 40)
 x
 #> Crossword Puzzle
 #> Contains 50 clues.
-#> There are 27 across and 23 down.
+#> There are 24 across and 26 down.
 ```
 
 ``` r

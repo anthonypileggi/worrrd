@@ -19,9 +19,9 @@ make_logo <- function() {
 
   # draw via ggplot
   dplyr::bind_rows(w1, w2) %>%
-    ggplot2::ggplot(aes(x = x, y = y)) +
+    ggplot2::ggplot(aes(x = .data$x, y = .data$y)) +
     ggplot2::geom_tile(fill = "gray", color = "black", alpha = .5) +
-    ggplot2::geom_text(aes(label = label), size = 3) +
+    ggplot2::geom_text(aes(label = .data$label), size = 3) +
     ggplot2::theme_void()
   ggplot2::ggsave("logo.png", width = 1, height = 1)
 

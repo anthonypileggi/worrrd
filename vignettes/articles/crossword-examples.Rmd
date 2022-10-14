@@ -60,8 +60,8 @@ dat <- dplyr::tibble(
   solution_text = as.english(solution)
 ) %>%
   dplyr::filter(
-    solution > 0,
-    !duplicated(solution)
+    solution > 0,           # only solutions > 0
+    !duplicated(solution)   # no duplicates allowed
   )
 
 ex2 <- crossword(words = dat$solution_text, clues = dat$problem, r = 50, c = 50)

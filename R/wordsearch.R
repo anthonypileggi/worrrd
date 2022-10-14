@@ -141,7 +141,7 @@ plot.wordsearch <- function(x,
 
   # draw wordsearch
   g1 <- xt %>%
-    dplyr::filter(!is.na(value)) %>%
+    dplyr::filter(!is.na(.data$value)) %>%
     ggplot2::ggplot()
   if (is.null(puzzle_size)) {
     g1 <- g1 +

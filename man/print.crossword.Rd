@@ -4,7 +4,12 @@
 \alias{print.crossword}
 \title{Print a crossword puzzle}
 \usage{
-\method{print}{crossword}(x)
+\method{print}{crossword}(x, ...)
+}
+\arguments{
+\item{x}{a crossword object (see \code{\link{crossword}})}
+
+\item{...}{additional printing args}
 }
 \description{
 Print a crossword puzzle

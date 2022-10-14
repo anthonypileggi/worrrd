@@ -4,7 +4,12 @@
 \alias{print.wordsearch}
 \title{Print details for a wordsearch puzzle}
 \usage{
-\method{print}{wordsearch}(x)
+\method{print}{wordsearch}(x, ...)
+}
+\arguments{
+\item{x}{wordsearch object (class: wordsearch)}
+
+\item{...}{additional printing args}
 }
 \description{
 Print details for a wordsearch puzzle

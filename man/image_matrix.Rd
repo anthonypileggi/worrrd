@@ -6,14 +6,16 @@
 \usage{
 image_matrix(
   img = "https://upload.wikimedia.org/wikipedia/commons/9/96/Tux_Paint_banana.svg",
-  r = 10,
-  c = 10
+  rows = 10,
+  columns = 10
 )
 }
 \arguments{
-\item{img}{image path}
+\item{img}{full path to image (character/scalar)}
 
-\item{r}{number of rows (numeric/sclar)}
+\item{rows}{number of rows (numeric/scalar)}
+
+\item{columns}{number of columns (numeric/scalar)}
 }
 \description{
 Convert an image to a 0/1 matrix

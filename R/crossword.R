@@ -52,7 +52,7 @@ crossword <- function(words,
   while (length(words) > 0) {
     word_added <- FALSE
     if (method == "optimal") {
-      wts <- worrrd:::word_overlap(words)
+      wts <- word_overlap(words)
       ids <- rank(-wts, ties.method = "first")
       words <- words[ids]
     } else {

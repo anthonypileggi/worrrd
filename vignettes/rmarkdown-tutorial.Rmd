@@ -1,0 +1,40 @@
+---
+title: "Printing in Rmarkdown"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+   fig.width = 7, 
+  out.width = '100%'
+)
+```
+
+## Create an Rmarkdown document
+
+For crosswords and wordsearches, the clues and word lists are printed alongside the puzzle.  However, this can get a little messy for longer lists.  An alternative is to generate an Rmarkdown document.
+
+```{r setup}
+library(worrrd)
+
+# Generate a wordsearch puzzle
+words <- c("dog", "cat", "squirrel", "bird", "fish", "panda", "wolf")
+x <- wordsearch(words, r = 10, c = 10)
+
+```
+
+### Puzzle
+```{r}
+plot(x)
+```
+
+### Word List
+```{r}
+cat(x$clues, sep = "\n")
+```

@@ -12,6 +12,8 @@ add_word(x, word = "finding", must_intersect = FALSE, shape_matrix = NULL)
 \item{word}{the word to add (character/scalar)}
 
 \item{must_intersect}{force the added word to intersect with >1 word (logical/scalar)}
+
+\item{shape_matrix}{a binary matrix generated from a call to \code{\link{image_matrix}}}
 }
 \value{
 word matrix with word added (if possible)

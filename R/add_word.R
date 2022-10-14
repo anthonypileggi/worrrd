@@ -2,6 +2,7 @@
 #' @param x word matrix
 #' @param word the word to add (character/scalar)
 #' @param must_intersect force the added word to intersect with >1 word (logical/scalar)
+#' @param shape_matrix a binary matrix generated from a call to \code{\link{image_matrix}}
 #' @return word matrix with word added (if possible)
 add_word <- function(x,
                      word = "finding",

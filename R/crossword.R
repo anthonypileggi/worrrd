@@ -60,7 +60,7 @@ crossword <- function(words,
     }
 
     for (word in words) {
-      x <- worrrd:::add_word(x, word, must_intersect = n > length(words))
+      x <- add_word(x, word, must_intersect = n > length(words))
       if (word %in% unique(attr(x, "positions")$word)) {
         words <- setdiff(words, word)
         word_added <- TRUE
@@ -130,8 +130,10 @@ is_crossword <- function(x) {
 # Methods ==================================================================
 
 #' Print a crossword puzzle
+#' @param x a crossword object (see \code{\link{crossword}})
+#' @param ... additional printing args
 #' @export
-print.crossword <- function(x) {
+print.crossword <- function(x, ...) {
   clues <- attr(x, "clues")
   cat(paste("Crossword Puzzle\n"))
   cat(paste("Contains", nrow(clues), "clues.\n"))
@@ -143,27 +145,31 @@ print.crossword <- function(x) {
 #' @param x a crossword object (see \code{\link{crossword}})
 #' @param solution show solution? (logical/scalar)
 #' @param clues show clues? (logical/scalar)
+#' @param title puzzle title (character/scalar)
+#' @param legend_size letter size of word list; set to NULL to auto-size (numeric/scalar)
+#' @param ... additional printing args
 #' @export
 plot.crossword <- function(x,
                            solution = FALSE,
                            clues = FALSE,
                            title = "Crossword Puzzle",
-                           legend_size = 4) {
-  require(ggplot2)
-  g1 <- ggplot(attr(x, "positions")) +
-    geom_tile(aes(x = j, y = i, group = word), color = "black", fill = "white", alpha = 1) +
-    geom_text(aes(x = j, y = i, label = n), size = 2, nudge_y = .35, nudge_x = -.35, color = "black", data = attr(x, "clues")) +
-    ggtitle(title) +
-    scale_y_reverse() +
-    theme_void() +
-    theme(
+                           legend_size = 4,
+                           ...) {
+
+  g1 <- ggplot2::ggplot(attr(x, "positions")) +
+    ggplot2::geom_tile(aes(x = .data$j, y = .data$i, group = .data$word), color = "black", fill = "white", alpha = 1) +
+    ggplot2::geom_text(aes(x = .data$j, y = .data$i, label = .data$n), size = 2, nudge_y = .35, nudge_x = -.35, color = "black", data = attr(x, "clues")) +
+    ggplot2::ggtitle(title) +
+    ggplot2::scale_y_reverse() +
+    ggplot2::theme_void() +
+    ggplot2::theme(
       aspect.ratio = ncol(x) / nrow(x),
       panel.background = element_rect(fill = "black"),
       plot.title = element_text(hjust = 0.5, size = 24, face = "bold")
       )
 
   if (solution)
-    g1 <- g1 + geom_text(aes(x = j, y = i, label = letters), color = "red")
+    g1 <- g1 + ggplot2::geom_text(aes(x = .data$j, y = .data$i, label = .data$letters), color = "red")
 
   if (clues) {
     g2 <-
@@ -176,21 +182,21 @@ plot.crossword <- function(x,
           ) %>%
           dplyr::filter(
             dir == tolower(d)
-            )
+          )
           nn <- max(xt$n)
-          ggplot(xt) +
-          # ggtext::geom_richtext(
-          #   aes(x = 1, y = n, label = clue),
-          #   fill = NA,
-          #   size = legend_size,
-          #   label.color = NA,  # remove background and outline
-          #   label.padding = grid::unit(rep(0, 4), "pt")  # remove padding
-          # ) +
-          geom_text(aes(x = 1, y = n, label = clue), hjust = 0, size = legend_size) +
-          annotate("text", x = 1, y = 0, label = paste0("underline(bold(", toupper(d), "))"), parse = TRUE) +
-          theme_void() +
-          scale_y_reverse() +
-          xlim(.8, 1.5)
+          ggplot2::ggplot(xt) +
+            # ggtext::geom_richtext(
+            #   aes(x = 1, y = .data$n, label = .data$clue),
+            #   fill = NA,
+            #   size = legend_size,
+            #   label.color = NA,  # remove background and outline
+            #   label.padding = grid::unit(rep(0, 4), "pt")  # remove padding
+            # ) +
+            ggplot2::geom_text(aes(x = 1, y = .data$n, label = .data$clue), hjust = 0, size = legend_size) +
+            ggplot2::annotate("text", x = 1, y = 0, label = paste0("underline(bold(", toupper(d), "))"), parse = TRUE) +
+            ggplot2::theme_void() +
+            ggplot2::scale_y_reverse() +
+            ggplot2::xlim(.8, 1.5)
         }
       )
     g3 <- cowplot::plot_grid(g2[[1]], g2[[2]], nrow = 2, rel_widths = c(1, 1))

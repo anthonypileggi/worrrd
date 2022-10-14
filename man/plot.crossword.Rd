@@ -9,7 +9,8 @@
   solution = FALSE,
   clues = FALSE,
   title = "Crossword Puzzle",
-  legend_size = 4
+  legend_size = 4,
+  ...
 )
 }
 \arguments{
@@ -18,6 +19,12 @@
 \item{solution}{show solution? (logical/scalar)}
 
 \item{clues}{show clues? (logical/scalar)}
+
+\item{title}{puzzle title (character/scalar)}
+
+\item{legend_size}{letter size of word list; set to NULL to auto-size (numeric/scalar)}
+
+\item{...}{additional printing args}
 }
 \description{
 Plot a crossword puzzle

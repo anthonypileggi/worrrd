@@ -10,7 +10,8 @@
   clues = TRUE,
   title = "",
   puzzle_size = NULL,
-  legend_size = NULL
+  legend_size = NULL,
+  ...
 )
 }
 \arguments{
@@ -25,6 +26,8 @@
 \item{puzzle_size}{letter size of puzzle; ignore to auto-size (numeric/scalar)}
 
 \item{legend_size}{letter size of word list; set to NULL to auto-size (numeric/scalar)}
+
+\item{...}{additional plotting args}
 }
 \description{
 Draw a wordsearch puzzle

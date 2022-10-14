@@ -190,7 +190,7 @@ plot.wordsearch <- function(x,
       ggplot2::geom_tile(
         aes(x = .data$i, y = .data$j),
         alpha = .1, fill = "gray", color = "gray",
-        data = dplyr::filter(xt, outline)
+        data = dplyr::filter(xt, .data$outline)
         )
   }
 
@@ -229,7 +229,7 @@ plot.wordsearch <- function(x,
         #   hjust = 0.5
         # )
         ggtext::geom_richtext(
-          aes(x = .data$i, y = .data$j, label = word),
+          aes(x = .data$i, y = .data$j, label = .data$word),
           fill = NA,
           size = legend_size,
           label.color = NA,  # remove background and outline

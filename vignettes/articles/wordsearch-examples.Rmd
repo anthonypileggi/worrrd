@@ -146,14 +146,14 @@ ggdraw() +
 ```
 
 
-## Example 6: Custom Shapes (⚠️ Experimental)
+<!-- ## Example 6: Custom Shapes (⚠️ Experimental) -->
 
-This lion was hungry.  Can you find the antelope he ate?
+<!-- This lion was hungry.  Can you find the antelope he ate? -->
 
-```{r wordsearch-lion}
-lion <- "https://us.123rf.com/450wm/miceking/miceking1506/miceking150601500/40903456-stock-vector-lion-silhouette.jpg"
-ex6 <- wordsearch("antelope", r = 40, c = 40, image = lion)
-plot(ex6, solution = TRUE, puzzle_size = 2)
-```
+<!-- ```{r wordsearch-lion} -->
+<!-- lion <- "https://us.123rf.com/450wm/miceking/miceking1506/miceking150601500/40903456-stock-vector-lion-silhouette.jpg" -->
+<!-- ex6 <- wordsearch("antelope", r = 40, c = 40, image = lion) -->
+<!-- plot(ex6, solution = TRUE, puzzle_size = 2) -->
+<!-- ``` -->
 
 

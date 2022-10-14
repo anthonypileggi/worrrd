@@ -95,8 +95,10 @@ is_wordsearch <- function(x) {
 # Methods ===================================================================
 
 #' Print details for a wordsearch puzzle
+#' @param x wordsearch object (class: wordsearch)
+#' @param ... additional printing args
 #' @export
-print.wordsearch <- function(x) {
+print.wordsearch <- function(x, ...) {
   cat(paste("Wordsearch\n"))
   cat(paste("Rows:", nrow(x$search), "\n"))
   cat(paste("Columns:", ncol(x$search), "\n"))
@@ -113,6 +115,7 @@ print.wordsearch <- function(x) {
 #' @param title puzzle title (character/scalar)
 #' @param puzzle_size letter size of puzzle; ignore to auto-size (numeric/scalar)
 #' @param legend_size letter size of word list; set to NULL to auto-size (numeric/scalar)
+#' @param ... additional plotting args
 #' @import ggplot2
 #' @export
 plot.wordsearch <- function(x,
@@ -120,8 +123,8 @@ plot.wordsearch <- function(x,
                             clues = TRUE,
                             title = "",
                             puzzle_size = NULL,
-                            legend_size = NULL) {
-  require(ggplot2)
+                            legend_size = NULL,
+                            ...) {
   ids <- expand.grid(i = 1:nrow(x$search), j = 1:ncol(x$search))
   xt <-
     purrr::map2_df(
@@ -139,33 +142,33 @@ plot.wordsearch <- function(x,
   # draw wordsearch
   g1 <- xt %>%
     dplyr::filter(!is.na(value)) %>%
-    ggplot()
+    ggplot2::ggplot()
   if (is.null(puzzle_size)) {
     g1 <- g1 +
       ggfittext::geom_fit_text(
-        aes(x = i, y = j, label = value),
+        aes(x = .data$i, y = .data$j, label = .data$value),
         grow = T,
         min.size = 0
       )
   } else {
     g1 <- g1 +
-      geom_text(
-        aes(x = i, y = j, label = value),
+      ggplot2::geom_text(
+        aes(x = .data$i, y = .data$j, label = .data$value),
         size = puzzle_size
       )
   }
   g1 <- g1 +
-    scale_y_reverse() +
-    theme_void() +
-    theme(
+    ggplot2::scale_y_reverse() +
+    ggplot2::theme_void() +
+    ggplot2::theme(
       aspect.ratio = ncol(x$search) / nrow(x$search)
       )
 
   # add solution (upon request)
   if (solution) {
     g1 <- g1 +
-      geom_line(
-        aes(x = i, y = j, group = word),
+      ggplot2::geom_line(
+        aes(x = .data$i, y = .data$j, group = .data$word),
         color = "red",
         data = attr(x$search, "positions")
         )
@@ -177,15 +180,15 @@ plot.wordsearch <- function(x,
   #  -- otherwise, add a border
   if (is.null(x$shape_matrix)) {
     g1 <- g1 +
-      annotate("rect",
+      ggplot2::annotate("rect",
         xmin = 0.5, ymin = 0.5,
         xmax = max(xt$i) + 0.5, ymax = max(xt$j) + 0.5,
         alpha = 0, color = "black"
       )
   } else {
     g1 <- g1 +
-      geom_tile(
-        aes(x = i, y = j),
+      ggplot2::geom_tile(
+        aes(x = .data$i, y = .data$j),
         alpha = .1, fill = "gray", color = "gray",
         data = dplyr::filter(xt, outline)
         )
@@ -194,8 +197,8 @@ plot.wordsearch <- function(x,
   # add title (upon request)
   if (title != "") {
     g1 <- g1 +
-      ggtitle(title) +
-      theme(
+      ggplot2::ggtitle(title) +
+      ggplot2::theme(
         plot.title = element_text(hjust = 0.5, size = 24, face = "bold")
       )
   }
@@ -209,11 +212,11 @@ plot.wordsearch <- function(x,
       j = 1:length(x$clues),
       word = x$clues
     )
-    g2 <- ggplot(tmp)
+    g2 <- ggplot2::ggplot(tmp)
     if (is.null(legend_size)) {
       g2 <- g2 +
         ggfittext::geom_fit_text(
-          aes(x = i, y = j, label = word),
+          aes(x = .data$i, y = .data$j, label = .data$word),
           reflow = T,
           grow = F,      # NOTE: grow=T slows this process...
           min.size = 0
@@ -226,7 +229,7 @@ plot.wordsearch <- function(x,
         #   hjust = 0.5
         # )
         ggtext::geom_richtext(
-          aes(x = i, y = j, label = word),
+          aes(x = .data$i, y = .data$j, label = word),
           fill = NA,
           size = legend_size,
           label.color = NA,  # remove background and outline
@@ -234,10 +237,10 @@ plot.wordsearch <- function(x,
         )
     }
     g2 <- g2 +
-      ggtitle(expression(underline("Word List"))) +
-      theme_void() +
-      scale_y_reverse() +
-      theme(
+      ggplot2::ggtitle(expression(underline("Word List"))) +
+      ggplot2::theme_void() +
+      ggplot2::scale_y_reverse() +
+      ggplot2::theme(
         plot.title = element_text(hjust = 0.5, size = 16, face = "bold")
       )
     g1 <- cowplot::plot_grid(g1, g2, nrow = 1, rel_widths = c(3/4, 1/4))

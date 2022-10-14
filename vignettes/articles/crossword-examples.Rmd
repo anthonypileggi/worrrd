@@ -1,10 +1,5 @@
 ---
-title: "Crossword Puzzle Examples"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{examples}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+title: "Crossword examples"
 ---
 
 ```{r, include = FALSE}
@@ -30,32 +25,33 @@ library(emoji)
 Crossword puzzles are required to be intersecting, so it may not be possible to include every word that is provided.  Choosing the `method = 'optimal'` will place words in order of maximal overlap with every other word, while `method = 'random'` will place words in a random order and may therefore result in more words being excluded from the puzzle.
 
 ```{r}
-df <- 
+dat <- 
   dplyr::tribble(
-    ~word, ~clue,
-    "dog", "Bark. Bark. Bark.",
-    "cat", "Purrr",
+    ~word,   ~clue,
+    "dog",   "Bark. Bark. Bark.",
+    "cat",   "Purrr",
     "horse", "Neighhhhh",
-    "frog", "Ribbit Ribbit",
-    "cow", "Moooooooo",
-    "fox", "Nee Nee Nee (What does the ____ say?)",
+    "frog",  "Ribbit Ribbit",
+    "cow",   "Moooooooo",
+    "fox",   "Nee Nee Nee (What does the ____ say?)",
     "sheep", "Bleat",
     "snake", "Hissss",
-    "duck", "Quack",
-    "bird", "Chirp"
+    "duck",  "Quack",
+    "bird",  "Chirp"
   )
-ex1 <- crossword(words = df$word, clues = df$clue, r = 40, c = 40)
-plot(ex1, solution = T, clues = T)
+ex1 <- crossword(words = dat$word, clues = dat$clue, r = 40, c = 40)
+plot(ex1, solution = TRUE, clues = TRUE)
 ```
 
 
 ## Example 2:  Math Problem Puzzle
 
-Here we create math problems randomly, and then use the `english` package to automatically convert the numeric solutions into words that are then placed into the puzzle.
+Here we create math problems randomly, and then use the `english` package to 
+automatically convert the numeric solutions into words that are then placed into the puzzle.
 
 ```{r}
 library(english)
-df <- dplyr::tibble(
+dat <- dplyr::tibble(
   n1 = round(20 * runif(20)),
   n2 = round(20 * runif(20)),
   sign = sample(c("+", "-"), 20, replace = T),
@@ -68,6 +64,6 @@ df <- dplyr::tibble(
     !duplicated(solution)
   )
 
-ex2 <- crossword(words = df$solution_text, clues = df$problem, r = 50, c = 50)
-plot(ex2, clues = T, solution = T, title = "Math Makes Me Cross")
+ex2 <- crossword(words = dat$solution_text, clues = dat$problem, r = 50, c = 50)
+plot(ex2, clues = TRUE, solution = TRUE, title = "Math Makes Me Cross")
 ```

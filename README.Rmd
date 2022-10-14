@@ -53,6 +53,32 @@ x <- wordsearch(state.name, r = 50, c = 50)
 plot(x, solution = TRUE, puzzle_size = 2, legend_size = 2)
 ```
 
+### Puzzle Book
+
+If you want to make a printable wordsearch book, you can provide a .yml file.
+
+**my_book.yaml**
+```{yaml eval = FALSE}
+title: I made a wordsearch!
+author: Unicorn Cupcake
+type: wordsearch
+rows: 20
+cols: 20
+pages:
+  - name: Fruity Fun
+    words: [apple, orange, banana, grapes, kiwi, strawberry, watermelon, lemon, lime]
+  - name: Animal Mayhem
+    words: [dog, cat, fish, wolf, horse, shark, crocodile, alligator, iguana]
+    image: "https://us.123rf.com/450wm/miceking/miceking1506/miceking150601500/40903456-stock-vector-lion-silhouette.jpg"
+
+  - name: Searchin in the USA
+    words: "`state.name`"
+```
+
+Then you can generate a [pdf puzzle book](https://github.com/anthonypileggi/worrrd/blob/master/inst/book.pdf).
+```{r, eval = FALSE}
+book(input_file = "my_book.yaml", output_file = "my_puzzle_book")
+```
 
 ## Crossword Puzzle
 
@@ -69,6 +95,10 @@ x
 plot(x)
 plot(x, solution = TRUE)
 ```
+
+## Future Plans
+
+- Allow crossword in the puzzle book
 
 ## Known Issues
 

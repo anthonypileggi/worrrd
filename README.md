@@ -48,6 +48,37 @@ plot(x, solution = TRUE, puzzle_size = 2, legend_size = 2)
 
 ![](man/figures/README-wordsearch-hard-1.png)<!-- -->
 
+### Puzzle Book
+
+If you want to make a printable wordsearch book, you can provide a .yml
+file.
+
+**my_book.yaml**
+
+``` yaml
+title: I made a wordsearch!
+author: Unicorn Cupcake
+type: wordsearch
+rows: 20
+cols: 20
+pages:
+  - name: Fruity Fun
+    words: [apple, orange, banana, grapes, kiwi, strawberry, watermelon, lemon, lime]
+  - name: Animal Mayhem
+    words: [dog, cat, fish, wolf, horse, shark, crocodile, alligator, iguana]
+    image: "https://us.123rf.com/450wm/miceking/miceking1506/miceking150601500/40903456-stock-vector-lion-silhouette.jpg"
+
+  - name: Searchin in the USA
+    words: "`state.name`"
+```
+
+Then you can generate a [pdf puzzle
+book](https://github.com/anthonypileggi/worrrd/blob/master/inst/book.pdf).
+
+``` r
+book(input_file = "my_book.yaml", output_file = "my_puzzle_book")
+```
+
 ## Crossword Puzzle
 
 Oh, you’re one of the more sophisticated types that craves a crossword
@@ -61,7 +92,7 @@ x <- crossword(words, clues, r = 40, c = 40)
 x
 #> Crossword Puzzle
 #> Contains 50 clues.
-#> There are 24 across and 26 down.
+#> There are 25 across and 25 down.
 ```
 
 ``` r
@@ -75,6 +106,10 @@ plot(x, solution = TRUE)
 ```
 
 ![](man/figures/README-crossword-2.png)<!-- -->
+
+## Future Plans
+
+-   Allow crossword in the puzzle book
 
 ## Known Issues
 

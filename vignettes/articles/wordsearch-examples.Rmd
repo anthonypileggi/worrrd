@@ -1,10 +1,5 @@
 ---
-title: "Wordsearch Examples"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{examples}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+title: "Word search examples"
 ---
 
 ```{r, include = FALSE}
@@ -17,9 +12,9 @@ knitr::opts_chunk$set(
 ```
 
 
-## Example 1: Basic Wordsearch
+## Example 1: Basic Word search
 
-Let's start off with creating a basic wordsearch.
+Let's start off with creating a basic word search.
 
 ```{r setup, message=FALSE, warning=FALSE}
 library(worrrd)
@@ -32,7 +27,7 @@ library(emoji)
 ```{r}
 words <- c("dog", "cat", "horse", "frog", "cow", "fox")
 ex1 <- wordsearch(words, r = 10, c = 10)
-plot(ex1, solution = T)
+plot(ex1, solution = TRUE)
 ```
 
 ## Example 2: Animal Sounds
@@ -86,7 +81,8 @@ plot(ex2, solution = T, title = "Animal Sounds", legend_size = 4)   # set legend
 
 ## Example 3:  Math Problems
 
-You can get creative with the `clues`.  In this example we'll create a wordsearch that requires the user to complete the math problems before finding the words.
+You can get creative with the `clues`.  In this example we'll create a word search 
+that requires the user to complete the math problems before finding the words.
 
 ```{r}
 math <- dplyr::tribble(
@@ -101,7 +97,7 @@ math <- dplyr::tribble(
 )
 
 ex3 <- wordsearch(words = math$solution, clues = math$problem)
-plot(ex3, solution = T, title = "Math is Fun")
+plot(ex3, solution = TRUE, title = "Math is Fun")
 ```
 
 ## Example 4:  More Math Problems
@@ -110,10 +106,11 @@ Here we create more math problems randomly, and then use the `english` package t
 
 ```{r}
 library(english)
-df <- dplyr::tibble(
-  n1 = round(20 * runif(20)),
-  n2 = round(20 * runif(20)),
-  sign = sample(c("+", "-"), 20, replace = T),
+n_words <- 20
+dat <- dplyr::tibble(
+  n1 = round(n_words * runif(n_words)),
+  n2 = round(n_words * runif(n_words)),
+  sign = sample(c("+", "-"), n_words, replace = T),
   problem = paste(n1, sign, n2),
   solution = purrr::map_dbl(problem, ~eval(parse(text = .x))),
   solution_text = as.english(solution)
@@ -122,7 +119,43 @@ df <- dplyr::tibble(
     solution > 0,           # only solutions > 0
     !duplicated(solution)   # no duplicates allowed
   )
-
-ex4 <- wordsearch(words = df$solution_text, clues = df$problem, r = 15, c = 15)
-plot(ex4, solution = T, title = "Math is Really Fun", legend_size = 4)
+ex4 <- wordsearch(words = dat$solution_text, clues = dat$problem, r = 15, c = 15)
+plot(ex4, solution = TRUE, title = "Math is Really Fun", legend_size = 4)
 ```
+
+## Example 5: Custom Shapes (⚠️ Experimental)
+
+Wait, what?  You want to make it in the shape of a banana?  I mean, that's kinda weird... but why not!
+
+_Note:_ A new, random search is generated each time you submit the command. If the 
+words do not fit well, try regenerating the word search.
+
+```{r wordsearch-banana}
+library(cowplot)
+banana <- "https://upload.wikimedia.org/wikipedia/commons/9/96/Tux_Paint_banana.svg"
+words <- c("banana", "apple", "grapes", "orange", "pear", "kumquat")
+ex5 <- wordsearch(words, r = 20, c = 20, image = banana)
+plot(ex5, solution = TRUE)
+```
+
+Or try overlaying your image with the search.
+
+```{r wordsearch-banana-overlay}
+cowplot::ggdraw() +
+  cowplot::draw_image(banana) +
+  cowplot::draw_plot(plot(x, solution = TRUE))
+
+```
+
+
+## Example 6: Custom Shapes (⚠️ Experimental)
+
+This lion was hungry.  Can you find the antelope he ate?
+
+```{r wordsearch-lion}
+lion <- "https://us.123rf.com/450wm/miceking/miceking1506/miceking150601500/40903456-stock-vector-lion-silhouette.jpg"
+ex6 <- wordsearch("antelope", r = 40, c = 40, image = lion)
+plot(ex6, solution = TRUE, puzzle_size = 2)
+```
+
+

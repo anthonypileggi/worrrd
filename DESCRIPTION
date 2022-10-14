@@ -20,6 +20,7 @@ Imports:
     dplyr,
     tibble,
     magrittr,
+    stringr,
     ggtext,
     ggfittext,
     cowplot

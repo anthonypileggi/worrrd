@@ -1,7 +1,11 @@
-pandoc: 1.19.2.1
-pkgdown: 1.1.0
+pandoc: 2.14.0.3
+pkgdown: 2.0.6
 pkgdown_sha: ~
-articles: []
+articles:
+  crossword-examples: crossword-examples.html
+  wordsearch-examples: wordsearch-examples.html
+  rmarkdown-tutorial: rmarkdown-tutorial.html
+last_built: 2022-10-14T17:56Z
 urls:
   reference: https://anthonypileggi.github.io/worrrd/reference
   article: https://anthonypileggi.github.io/worrrd/articles

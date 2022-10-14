@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://anthonypileggi.github.io/worrrd/404.html</loc>
+  </url>
+  <url>
+    <loc>https://anthonypileggi.github.io/worrrd/articles/crossword-examples.html</loc>
+  </url>
+  <url>
+    <loc>https://anthonypileggi.github.io/worrrd/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://anthonypileggi.github.io/worrrd/articles/rmarkdown-tutorial.html</loc>
+  </url>
+  <url>
+    <loc>https://anthonypileggi.github.io/worrrd/articles/wordsearch-examples.html</loc>
+  </url>
+  <url>
+    <loc>https://anthonypileggi.github.io/worrrd/authors.html</loc>
+  </url>
+  <url>
     <loc>https://anthonypileggi.github.io/worrrd/index.html</loc>
+  </url>
+  <url>
+    <loc>https://anthonypileggi.github.io/worrrd/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://anthonypileggi.github.io/worrrd/readme.html</loc>
   </url>
   <url>
     <loc>https://anthonypileggi.github.io/worrrd/reference/add_word.html</loc>
@@ -10,10 +34,13 @@
     <loc>https://anthonypileggi.github.io/worrrd/reference/as_crossword.html</loc>
   </url>
   <url>
+    <loc>https://anthonypileggi.github.io/worrrd/reference/as_wordsearch.html</loc>
+  </url>
+  <url>
     <loc>https://anthonypileggi.github.io/worrrd/reference/as_word_matrix.html</loc>
   </url>
   <url>
-    <loc>https://anthonypileggi.github.io/worrrd/reference/as_wordsearch.html</loc>
+    <loc>https://anthonypileggi.github.io/worrrd/reference/book.html</loc>
   </url>
   <url>
     <loc>https://anthonypileggi.github.io/worrrd/reference/color_by_numbers.html</loc>
@@ -28,13 +55,16 @@
     <loc>https://anthonypileggi.github.io/worrrd/reference/image_matrix.html</loc>
   </url>
   <url>
+    <loc>https://anthonypileggi.github.io/worrrd/reference/index.html</loc>
+  </url>
+  <url>
     <loc>https://anthonypileggi.github.io/worrrd/reference/is_crossword.html</loc>
   </url>
   <url>
-    <loc>https://anthonypileggi.github.io/worrrd/reference/is_word_matrix.html</loc>
+    <loc>https://anthonypileggi.github.io/worrrd/reference/is_wordsearch.html</loc>
   </url>
   <url>
-    <loc>https://anthonypileggi.github.io/worrrd/reference/is_wordsearch.html</loc>
+    <loc>https://anthonypileggi.github.io/worrrd/reference/is_word_matrix.html</loc>
   </url>
   <url>
     <loc>https://anthonypileggi.github.io/worrrd/reference/make_logo.html</loc>
@@ -61,12 +91,15 @@
     <loc>https://anthonypileggi.github.io/worrrd/reference/printable.html</loc>
   </url>
   <url>
+    <loc>https://anthonypileggi.github.io/worrrd/reference/wordsearch.html</loc>
+  </url>
+  <url>
     <loc>https://anthonypileggi.github.io/worrrd/reference/word_intersections.html</loc>
   </url>
   <url>
     <loc>https://anthonypileggi.github.io/worrrd/reference/word_matrix.html</loc>
   </url>
   <url>
-    <loc>https://anthonypileggi.github.io/worrrd/reference/wordsearch.html</loc>
+    <loc>https://anthonypileggi.github.io/worrrd/reference/word_overlap.html</loc>
   </url>
 </urlset>

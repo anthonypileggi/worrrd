@@ -2,18 +2,21 @@
 % Please edit documentation in R/book.R
 \name{book}
 \alias{book}
-\title{Create a wordsearch/crossword book}
+\title{Create a puzzle book}
 \usage{
 book(
   input_file = system.file("book.yml", package = "worrrd"),
-  output_file = "book.Rmd"
+  output_file = "book.pdf",
+  solutions = TRUE
 )
 }
 \arguments{
 \item{input_file}{yaml file containing book details/contents}
 
-\item{output_file}{full path to output file}
+\item{output_file}{full path to output file (with .pdf extension)}
+
+\item{solutions}{include solutions (logical/scalar)}
 }
 \description{
-Create a wordsearch/crossword book
+Create a puzzle book
 }

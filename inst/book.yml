@@ -6,9 +6,9 @@ cols: 20
 pages:
   - name: Fruity Fun
     words: [apple, orange, banana, grapes, kiwi, strawberry, watermelon, lemon, lime]
+
   - name: Animal Mayhem
     words: [dog, cat, fish, wolf, horse, shark, crocodile, alligator, iguana]
-    image: "https://us.123rf.com/450wm/miceking/miceking1506/miceking150601500/40903456-stock-vector-lion-silhouette.jpg"
 
   - name: Searchin in the USA
     words: "`state.name`"

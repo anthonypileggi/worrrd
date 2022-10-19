@@ -6,6 +6,30 @@
 #' @param method generate puzzle using 'optimal' or 'random' word order, where
 #'               the optimal order will place words with the most overlap first
 #' @importFrom magrittr "%>%"
+#'
+#' @examples
+#' # Example 1 ----
+#' x <- crossword(words = c("apple", "pear", "banana"), clues = c("red fruit", "bartlett", "green until yellow"))
+#' plot(x, solution = T)
+#'
+#' # Example 2 ---
+#' dat <-
+#' dplyr::tribble(
+#'   ~word,   ~clue,
+#'   "dog",   "Bark. Bark. Bark.",
+#'   "cat",   "Purrr",
+#'   "horse", "Neighhhhh",
+#'   "frog",  "Ribbit Ribbit",
+#'   "cow",   "Moooooooo",
+#'   "fox",   "Nee Nee Nee (What does the ____ say?)",
+#'   "sheep", "Bleat",
+#'   "snake", "Hissss",
+#'   "duck",  "Quack",
+#'   "bird",  "Chirp"
+#' )
+#' ex1 <- crossword(words = dat$word, clues = dat$clue, r = 40, c = 40)
+#' plot(ex1, solution = TRUE, clues = TRUE)
+#'
 #' @export
 crossword <- function(words,
                       clues,

@@ -2,6 +2,13 @@
 #' @param input_file yaml file containing book details/contents
 #' @param output_file full path to output file (with .pdf extension)
 #' @param solutions include solutions (logical/scalar)
+#'
+#' #' @examples
+#' \donttest{
+#' # Create demo book included with package
+#' book()
+#' }
+#'
 #' @export
 book <- function(input_file = system.file("book.yml", package = "worrrd"),
                  output_file = "book.pdf",

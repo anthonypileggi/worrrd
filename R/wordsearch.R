@@ -4,6 +4,32 @@
 #' @param r number of rows
 #' @param c number of columns
 #' @param image path to an image that the resulting grid should look like.NULL for no shape
+#'
+#' @examples
+#' # Example 1 ----
+#' words <- c("dog", "cat", "horse", "frog", "cow", "fox")
+#' ex1 <- wordsearch(words, r = 10, c = 10)
+#' plot(ex1, solution = TRUE)
+#'
+#' # Example 2 ----
+#' clues <- c("Bark", "Meow", "Neigh", "Ribbit", "Moo", "Nee Nee Nee")
+#' ex2 <- wordsearch(words = words, clues = clues)
+#' plot(ex2, solution = T, title = "Animal Sounds", legend_size = 4)   # set legend_size to force ggtext
+#'
+#' # Example 3 ----
+#' math <- dplyr::tribble(
+#'   ~problem,  ~solution,
+#'   "2 + 2",   "four",
+#'   "5 + 3",   "eight",
+#'   "9 - 4",   "five",
+#'   "1 + 0",   "one",
+#'   "2 + 1",   "three",
+#'   "5 + 5",   "ten",
+#'   "6 - 6",   "zero"
+#'  )
+#'  ex3 <- wordsearch(words = math$solution, clues = math$problem)
+#'  plot(ex3, solution = TRUE, title = "Math is Fun")
+#'
 #' @export
 wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
                        clues = words,

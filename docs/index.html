@@ -19,8 +19,8 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Generate Wordsearch and Crossword Puzzles">
 <meta property="og:description" content="Generate wordsearch and crossword puzzles using
-    custom lists of words (&amp; clues).  Make them easy or hard,
-    and print them for your kids to solve!">
+    custom lists of words (and clues).  Make them easy or hard,
+    and print them to solve offline with paper and pencil!">
 <meta property="og:image" content="https://anthonypileggi.github.io/worrrd/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -69,9 +69,6 @@
     </li>
     <li>
       <a href="articles/wordsearch-examples.html">Wordsearch Examples</a>
-    </li>
-    <li>
-      <a href="articles/rmarkdown-tutorial.html">Printing in Rmarkdown</a>
     </li>
   </ul>
 </li>
@@ -126,8 +123,7 @@
 <span><span class="va">words</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"alligator"</span>, <span class="st">"crocodile"</span>, <span class="st">"squirrel"</span>, <span class="st">"swordfish"</span>, <span class="st">"german shepherd"</span>, <span class="st">"panda"</span>, <span class="st">"wolf"</span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/wordsearch.html">wordsearch</a></span><span class="op">(</span><span class="va">words</span>, r <span class="op">=</span> <span class="fl">20</span>, c <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Found positions for 7/7 words.</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, solution <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: ggplot2</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, solution <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-wordsearch-easy-1.png"><!-- --></p>
 <p>You can make it as hard as you want. Go bananas!</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -140,7 +136,7 @@
 <div class="section level3">
 <h3 id="puzzle-book">Puzzle Book<a class="anchor" aria-label="anchor" href="#puzzle-book"></a>
 </h3>
-<p>If you want to make a printable wordsearch book, you can provide a .yml file.</p>
+<p>If you want to make a pdf book full of wordsearch puzzles that is easily printed, you can provide a .yml file.</p>
 <p><strong>my_book.yaml</strong></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> I made a wordsearch!</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> Unicorn Cupcake</span></span>
@@ -173,7 +169,7 @@
 <span><span class="va">x</span></span>
 <span><span class="co">#&gt; Crossword Puzzle</span></span>
 <span><span class="co">#&gt; Contains 50 clues.</span></span>
-<span><span class="co">#&gt; There are 25 across and 25 down.</span></span></code></pre></div>
+<span><span class="co">#&gt; There are 28 across and 22 down.</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-crossword-1.png"><!-- --></p>
@@ -224,7 +220,9 @@
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://www.stochastic-squirrel.com/" class="external-link">Anthony Pileggi</a> <br><small class="roles"> Author, maintainer </small>  </li>
+<a href="https://www.stochastic-squirrel.com/" class="external-link">Anthony Pileggi</a> <br><small class="roles"> Author, maintainer, copyright holder </small>  </li>
+<li>
+<a href="https://www.pipinghotdata.com/" class="external-link">Shannon Pileggi</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-7732-4164" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
 
@@ -236,7 +234,7 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by <a href="https://www.stochastic-squirrel.com/" class="external-link">Anthony Pileggi</a>.</p>
+<p>Developed by <a href="https://www.stochastic-squirrel.com/" class="external-link">Anthony Pileggi</a>, <a href="https://www.pipinghotdata.com/" class="external-link">Shannon Pileggi</a>.</p>
 </div>
 
 <div class="pkgdown">

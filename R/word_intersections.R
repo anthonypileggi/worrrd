@@ -2,6 +2,7 @@
 #' @param x word matrix
 #' @param word the word to add (character/scalar)
 #' @return for each direction, a matrix of crossing-point counts
+#' @importFrom utils tail
 word_intersections <- function(x, word = "needles") {
 
   r <- nrow(x)

@@ -70,6 +70,9 @@
     <li>
       <a href="articles/wordsearch-examples.html">Wordsearch Examples</a>
     </li>
+    <li>
+      <a href="articles/getting-started.html">Getting Started</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -117,7 +120,7 @@
 </h2>
 <p>Create your very own custom wordsearch! Worrrd.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://anthonypileggi.github.io/worrrd">worrrd</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.stochastic-squirrel.com/worrrd/" class="external-link">worrrd</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Simple wordsearch</span></span>
 <span><span class="va">words</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"alligator"</span>, <span class="st">"crocodile"</span>, <span class="st">"squirrel"</span>, <span class="st">"swordfish"</span>, <span class="st">"german shepherd"</span>, <span class="st">"panda"</span>, <span class="st">"wolf"</span><span class="op">)</span></span>
@@ -152,7 +155,7 @@
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Searchin in the USA</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">words</span><span class="kw">:</span><span class="at"> </span><span class="st">"`state.name`"</span></span></code></pre></div>
-<p>Then you can generate a <a href="https://github.com/anthonypileggi/worrrd/blob/master/inst/book.pdf" class="external-link">pdf puzzle book</a>.</p>
+<p>Then you can generate a pdf puzzle book.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/book.html">book</a></span><span class="op">(</span>input_file <span class="op">=</span> <span class="st">"my_book.yaml"</span>, output_file <span class="op">=</span> <span class="st">"my_puzzle_book"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -169,7 +172,7 @@
 <span><span class="va">x</span></span>
 <span><span class="co">#&gt; Crossword Puzzle</span></span>
 <span><span class="co">#&gt; Contains 50 clues.</span></span>
-<span><span class="co">#&gt; There are 28 across and 22 down.</span></span></code></pre></div>
+<span><span class="co">#&gt; There are 26 across and 24 down.</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-crossword-1.png"><!-- --></p>

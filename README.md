@@ -71,8 +71,7 @@ pages:
     words: "`state.name`"
 ```
 
-Then you can generate a [pdf puzzle
-book](https://github.com/anthonypileggi/worrrd/blob/master/inst/book.pdf).
+Then you can generate a pdf puzzle book.
 
 ``` r
 book(input_file = "my_book.yaml", output_file = "my_puzzle_book")
@@ -91,7 +90,7 @@ x <- crossword(words, clues, r = 40, c = 40)
 x
 #> Crossword Puzzle
 #> Contains 50 clues.
-#> There are 28 across and 22 down.
+#> There are 26 across and 24 down.
 ```
 
 ``` r

@@ -75,7 +75,7 @@ pages:
     words: "`state.name`"
 ```
 
-Then you can generate a [pdf puzzle book](https://github.com/anthonypileggi/worrrd/blob/master/inst/book.pdf).
+Then you can generate a pdf puzzle book.
 ```{r, eval = FALSE}
 book(input_file = "my_book.yaml", output_file = "my_puzzle_book")
 ```

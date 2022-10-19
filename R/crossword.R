@@ -178,7 +178,7 @@ plot.crossword <- function(x,
         function(d) {
           xt <- attr(x, "clues") %>%
           dplyr::mutate(
-            clue = paste0(n, ". ", clue)
+            clue = paste0(n, ". ", .data[["clue"]])
           ) %>%
           dplyr::filter(
             dir == tolower(d)

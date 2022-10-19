@@ -3,7 +3,7 @@
 #' @param output_file full path to output file (with .pdf extension)
 #' @param solutions include solutions (logical/scalar)
 #'
-#' #' @examples
+#' @examples
 #' \donttest{
 #' # Create demo book included with package
 #' book()

@@ -8,9 +8,12 @@
 #' @importFrom magrittr "%>%"
 #'
 #' @examples
+#' \donttest{
 #' # Example 1 ----
-#' x <- crossword(words = c("apple", "pear", "banana"), clues = c("red fruit", "bartlett", "green until yellow"))
-#' plot(x, solution = T)
+#' words <- c("apple", "pear", "banana")
+#' clues <- c("red fruit", "bartlett", "green then yellow")
+#' x <- crossword(words, clues)
+#' plot(x, solution = TRUE)
 #'
 #' # Example 2 ---
 #' dat <-
@@ -27,9 +30,9 @@
 #'   "duck",  "Quack",
 #'   "bird",  "Chirp"
 #' )
-#' ex1 <- crossword(words = dat$word, clues = dat$clue, r = 40, c = 40)
-#' plot(ex1, solution = TRUE, clues = TRUE)
-#'
+#' ex2 <- crossword(words = dat$word, clues = dat$clue, r = 40, c = 40)
+#' plot(ex2, solution = TRUE, clues = TRUE)
+#' }
 #' @return a 'crossword' object
 #' @export
 crossword <- function(words,

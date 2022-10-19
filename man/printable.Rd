@@ -11,6 +11,9 @@ printable(x, filename = "plot.pdf")
 
 \item{filename}{name of file}
 }
+\value{
+filename of pdf puzzle
+}
 \description{
 Prepare a worrrd object for printing
 }

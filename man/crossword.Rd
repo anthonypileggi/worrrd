@@ -18,13 +18,19 @@ crossword(words, clues, r = 50, c = 50, method = c("optimal", "random"))
 \item{method}{generate puzzle using 'optimal' or 'random' word order, where
 the optimal order will place words with the most overlap first}
 }
+\value{
+a 'crossword' object
+}
 \description{
 Create a crossword puzzle
 }
 \examples{
+\donttest{
 # Example 1 ----
-x <- crossword(words = c("apple", "pear", "banana"), clues = c("red fruit", "bartlett", "green until yellow"))
-plot(x, solution = T)
+words <- c("apple", "pear", "banana")
+clues <- c("red fruit", "bartlett", "green then yellow")
+x <- crossword(words, clues)
+plot(x, solution = TRUE)
 
 # Example 2 ---
 dat <-
@@ -41,7 +47,7 @@ dplyr::tribble(
   "duck",  "Quack",
   "bird",  "Chirp"
 )
-ex1 <- crossword(words = dat$word, clues = dat$clue, r = 40, c = 40)
-plot(ex1, solution = TRUE, clues = TRUE)
-
+ex2 <- crossword(words = dat$word, clues = dat$clue, r = 40, c = 40)
+plot(ex2, solution = TRUE, clues = TRUE)
+}
 }

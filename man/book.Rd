@@ -15,14 +15,18 @@ book(
 
 \item{output_file}{full path to output file (with .pdf extension)}
 
-\item{solutions}{include solutions (logical/scalar)
-
-#' @examples
-\donttest{
-# Create demo book included with package
-book()
-}}
+\item{solutions}{include solutions (logical/scalar)}
+}
+\value{
+full path to the created puzzle book
 }
 \description{
 Create a puzzle book
+}
+\examples{
+\donttest{
+# Create demo book included with package
+book()
+}
+
 }

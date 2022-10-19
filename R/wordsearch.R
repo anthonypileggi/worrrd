@@ -6,6 +6,7 @@
 #' @param image path to an image that the resulting grid should look like.NULL for no shape
 #'
 #' @examples
+#' \donttest{
 #' # Example 1 ----
 #' words <- c("dog", "cat", "horse", "frog", "cow", "fox")
 #' ex1 <- wordsearch(words, r = 10, c = 10)
@@ -14,7 +15,7 @@
 #' # Example 2 ----
 #' clues <- c("Bark", "Meow", "Neigh", "Ribbit", "Moo", "Nee Nee Nee")
 #' ex2 <- wordsearch(words = words, clues = clues)
-#' plot(ex2, solution = T, title = "Animal Sounds", legend_size = 4)   # set legend_size to force ggtext
+#' plot(ex2, solution = TRUE, title = "Animal Sounds", legend_size = 4)
 #'
 #' # Example 3 ----
 #' math <- dplyr::tribble(
@@ -29,7 +30,7 @@
 #'  )
 #'  ex3 <- wordsearch(words = math$solution, clues = math$problem)
 #'  plot(ex3, solution = TRUE, title = "Math is Fun")
-#'
+#' }
 #' @return a 'wordsearch' object
 #' @export
 wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),

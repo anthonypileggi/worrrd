@@ -9,6 +9,7 @@
 #' book()
 #' }
 #'
+#' @return full path to the created puzzle book
 #' @export
 book <- function(input_file = system.file("book.yml", package = "worrrd"),
                  output_file = "book.pdf",

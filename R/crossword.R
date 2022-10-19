@@ -30,6 +30,7 @@
 #' ex1 <- crossword(words = dat$word, clues = dat$clue, r = 40, c = 40)
 #' plot(ex1, solution = TRUE, clues = TRUE)
 #'
+#' @return a 'crossword' object
 #' @export
 crossword <- function(words,
                       clues,

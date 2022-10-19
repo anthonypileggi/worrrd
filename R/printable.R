@@ -10,6 +10,7 @@
 #' printable(my_puzzle, "my_wordsearch.pdf")
 #' }
 #'
+#' @return filename of pdf puzzle
 #' @export
 printable <- function(x, filename = "plot.pdf") {
   ggplot2::ggsave(

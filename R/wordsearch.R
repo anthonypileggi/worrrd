@@ -30,6 +30,7 @@
 #'  ex3 <- wordsearch(words = math$solution, clues = math$problem)
 #'  plot(ex3, solution = TRUE, title = "Math is Fun")
 #'
+#' @return a 'wordsearch' object
 #' @export
 wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
                        clues = words,

@@ -31,7 +31,6 @@ words <- c("alligator", "crocodile", "squirrel", "swordfish", "german shepherd",
 x <- wordsearch(words, r = 20, c = 20)
 #> Found positions for 7/7 words.
 plot(x, solution = TRUE)
-#> Loading required package: ggplot2
 ```
 
 ![](man/figures/README-wordsearch-easy-1.png)<!-- -->
@@ -50,8 +49,8 @@ plot(x, solution = TRUE, puzzle_size = 2, legend_size = 2)
 
 ### Puzzle Book
 
-If you want to make a printable wordsearch book, you can provide a .yml
-file.
+If you want to make a pdf book full of wordsearch puzzles that is easily
+printed, you can provide a .yml file.
 
 **my_book.yaml**
 
@@ -92,7 +91,7 @@ x <- crossword(words, clues, r = 40, c = 40)
 x
 #> Crossword Puzzle
 #> Contains 50 clues.
-#> There are 25 across and 25 down.
+#> There are 28 across and 22 down.
 ```
 
 ``` r

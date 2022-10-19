@@ -55,7 +55,7 @@ plot(x, solution = TRUE, puzzle_size = 2, legend_size = 2)
 
 ### Puzzle Book
 
-If you want to make a printable wordsearch book, you can provide a .yml file.
+If you want to make a pdf book full of wordsearch puzzles that is easily printed, you can provide a .yml file.
 
 **my_book.yaml**
 ```{yaml eval = FALSE}

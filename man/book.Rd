@@ -24,7 +24,7 @@ full path to the created puzzle book
 Create a puzzle book
 }
 \examples{
-\donttest{
+\dontrun{
 # Create demo book included with package
 book()
 }

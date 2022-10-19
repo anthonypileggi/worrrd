@@ -4,7 +4,7 @@
 #' @param solutions include solutions (logical/scalar)
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # Create demo book included with package
 #' book()
 #' }

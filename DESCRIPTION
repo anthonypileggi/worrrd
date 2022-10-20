@@ -1,7 +1,7 @@
 Package: worrrd
 Type: Package
 Title: Generate Wordsearch and Crossword Puzzles
-Version: 0.1.0.9000
+Version: 0.1.0
 Authors@R: c(
     person("Anthony", "Pileggi", , "apileggi20@gmail.com", c("aut", "cre", "cph")),
     person("Shannon", "Pileggi", , "shannon.pileggi@gmail.com", role = c("aut"),

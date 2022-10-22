@@ -24,13 +24,12 @@ wordsearch(
 \item{image}{path to an image that the resulting grid should look like.NULL for no shape}
 }
 \value{
-a 'wordsearch' object
+wordsearch object
 }
 \description{
 Create a wordsearch puzzle
 }
 \examples{
-\donttest{
 # Example 1 ----
 words <- c("dog", "cat", "horse", "frog", "cow", "fox")
 ex1 <- wordsearch(words, r = 10, c = 10)
@@ -54,5 +53,5 @@ math <- dplyr::tribble(
  )
  ex3 <- wordsearch(words = math$solution, clues = math$problem)
  plot(ex3, solution = TRUE, title = "Math is Fun")
-}
+
 }

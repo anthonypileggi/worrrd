@@ -6,7 +6,6 @@
 #' @param image path to an image that the resulting grid should look like.NULL for no shape
 #'
 #' @examples
-#' \donttest{
 #' # Example 1 ----
 #' words <- c("dog", "cat", "horse", "frog", "cow", "fox")
 #' ex1 <- wordsearch(words, r = 10, c = 10)
@@ -30,7 +29,7 @@
 #'  )
 #'  ex3 <- wordsearch(words = math$solution, clues = math$problem)
 #'  plot(ex3, solution = TRUE, title = "Math is Fun")
-#' }
+#'
 #' @return wordsearch object
 #' @export
 wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
@@ -105,7 +104,19 @@ wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
 
 #' Assign an object to the `wordsearch` class
 #' @param x an object containing wordsearch data
-#' @return wordsearch object
+#' @return wordsearch object: a list with the following elements:
+#'
+#'       search:       a matrix representation of the wordsearch
+#'                     with 'positions' attribute a tibble representation of
+#'                     the solution
+#'       words:        (character/vector)
+#'       clues:        (character/vector)
+#'       solution:     a matrix representation of the wordsearch solution
+#'                     with 'positions' attribute a tibble representation
+#'                     of the solution
+#'       image:        image for shaping wordsearch (NULL if not provided)
+#'       shape_matrix: binary matrix representation of shape (NULL if no image)
+#'
 #' @export
 as_wordsearch <- function(x) {
   if (!is_wordsearch(x))
@@ -148,7 +159,7 @@ print.wordsearch <- function(x, ...) {
 #' @param legend_size letter size of word list; set to NULL to auto-size (numeric/scalar)
 #' @param ... additional plotting args
 #' @import ggplot2
-#' @return ggplot2 object
+#' @return ggplot object
 #' @export
 plot.wordsearch <- function(x,
                             solution = FALSE,

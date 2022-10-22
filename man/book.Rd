@@ -24,9 +24,9 @@ full path to the created puzzle book
 Create a puzzle book
 }
 \examples{
-\dontrun{
+\donttest{
 # Create demo book included with package
-book()
+book(output_file = "demo.pdf")
+unlink("demo.pdf")
 }
-
 }

@@ -29,6 +29,9 @@
 
 \item{...}{additional plotting args}
 }
+\value{
+ggplot object
+}
 \description{
 Draw a wordsearch puzzle
 }

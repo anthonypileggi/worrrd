@@ -8,7 +8,6 @@
 #' @importFrom magrittr "%>%"
 #'
 #' @examples
-#' \donttest{
 #' # Example 1 ----
 #' words <- c("apple", "pear", "banana")
 #' clues <- c("red fruit", "bartlett", "green then yellow")
@@ -32,7 +31,7 @@
 #' )
 #' ex2 <- crossword(words = dat$word, clues = dat$clue, r = 40, c = 40)
 #' plot(ex2, solution = TRUE, clues = TRUE)
-#' }
+#'
 #' @return crossword object
 #' @export
 crossword <- function(words,
@@ -140,7 +139,11 @@ crossword <- function(words,
 
 #' Assign an object to the `crossword` class
 #' @param x an object containing crossword data
-#' @return crossword object
+#' @return crossword object:
+#'   a matrix reprepresentation of the crossword, with attributes:
+#'      positions:  tibble representation of crossword
+#'      clues:      tibble representation of clue start (i.e., clue number locations)
+#'
 #' @export
 as_crossword <- function(x) {
   if (!is_crossword(x))

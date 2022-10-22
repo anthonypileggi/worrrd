@@ -26,6 +26,9 @@
 
 \item{...}{additional printing args}
 }
+\value{
+ggplot2 object
+}
 \description{
 Plot a crossword puzzle
 }

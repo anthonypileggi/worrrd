@@ -11,6 +11,9 @@
 
 \item{...}{additional printing args}
 }
+\value{
+wordsearch object
+}
 \description{
 Print details for a wordsearch puzzle
 }

@@ -19,13 +19,12 @@ crossword(words, clues, r = 50, c = 50, method = c("optimal", "random"))
 the optimal order will place words with the most overlap first}
 }
 \value{
-a 'crossword' object
+crossword object
 }
 \description{
 Create a crossword puzzle
 }
 \examples{
-\donttest{
 # Example 1 ----
 words <- c("apple", "pear", "banana")
 clues <- c("red fruit", "bartlett", "green then yellow")
@@ -49,5 +48,5 @@ dplyr::tribble(
 )
 ex2 <- crossword(words = dat$word, clues = dat$clue, r = 40, c = 40)
 plot(ex2, solution = TRUE, clues = TRUE)
-}
+
 }

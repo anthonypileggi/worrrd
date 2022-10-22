@@ -9,6 +9,9 @@ is_wordsearch(x)
 \arguments{
 \item{x}{an R object to check}
 }
+\value{
+logical/scalar
+}
 \description{
 Check if an object is of the `wordsearch` class
 }

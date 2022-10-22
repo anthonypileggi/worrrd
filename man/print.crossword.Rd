@@ -11,6 +11,9 @@
 
 \item{...}{additional printing args}
 }
+\value{
+crossword object
+}
 \description{
 Print a crossword puzzle
 }

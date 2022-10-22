@@ -9,6 +9,12 @@ as_crossword(x)
 \arguments{
 \item{x}{an object containing crossword data}
 }
+\value{
+crossword object:
+  a matrix reprepresentation of the crossword, with attributes:
+     positions:  tibble representation of crossword
+     clues:      tibble representation of clue start (i.e., clue number locations)
+}
 \description{
 Assign an object to the `crossword` class
 }

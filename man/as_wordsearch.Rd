@@ -9,6 +9,20 @@ as_wordsearch(x)
 \arguments{
 \item{x}{an object containing wordsearch data}
 }
+\value{
+wordsearch object: a list with the following elements:
+
+      search:       a matrix representation of the wordsearch
+                    with 'positions' attribute a tibble representation of
+                    the solution
+      words:        (character/vector)
+      clues:        (character/vector)
+      solution:     a matrix representation of the wordsearch solution
+                    with 'positions' attribute a tibble representation
+                    of the solution
+      image:        image for shaping wordsearch (NULL if not provided)
+      shape_matrix: binary matrix representation of shape (NULL if no image)
+}
 \description{
 Assign an object to the `wordsearch` class
 }

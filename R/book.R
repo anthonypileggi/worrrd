@@ -4,11 +4,11 @@
 #' @param solutions include solutions (logical/scalar)
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Create demo book included with package
-#' book()
+#' book(output_file = "demo.pdf")
+#' unlink("demo.pdf")
 #' }
-#'
 #' @return full path to the created puzzle book
 #' @export
 book <- function(input_file = system.file("book.yml", package = "worrrd"),

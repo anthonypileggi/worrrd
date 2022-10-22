@@ -1,5 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/anthonypileggi/worrrd/workflows/R-CMD-check/badge.svg)](https://github.com/anthonypileggi/worrrd/actions)
+<!-- badges: end -->
 
 # worrrd <img src="man/figures/logo.png" align="right" />
 
@@ -90,7 +94,7 @@ x <- crossword(words, clues, r = 40, c = 40)
 x
 #> Crossword Puzzle
 #> Contains 50 clues.
-#> There are 26 across and 24 down.
+#> There are 25 across and 25 down.
 ```
 
 ``` r

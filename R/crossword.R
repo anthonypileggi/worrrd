@@ -33,7 +33,7 @@
 #' ex2 <- crossword(words = dat$word, clues = dat$clue, r = 40, c = 40)
 #' plot(ex2, solution = TRUE, clues = TRUE)
 #' }
-#' @return a 'crossword' object
+#' @return crossword object
 #' @export
 crossword <- function(words,
                       clues,
@@ -140,6 +140,7 @@ crossword <- function(words,
 
 #' Assign an object to the `crossword` class
 #' @param x an object containing crossword data
+#' @return crossword object
 #' @export
 as_crossword <- function(x) {
   if (!is_crossword(x))
@@ -149,6 +150,7 @@ as_crossword <- function(x) {
 
 #' Check if an object is of the `crossword` class
 #' @param x an R object to check
+#' @return logical/scalar
 #' @export
 is_crossword <- function(x) {
   inherits(x, "crossword")
@@ -160,6 +162,7 @@ is_crossword <- function(x) {
 #' Print a crossword puzzle
 #' @param x a crossword object (see \code{\link{crossword}})
 #' @param ... additional printing args
+#' @return crossword object
 #' @export
 print.crossword <- function(x, ...) {
   clues <- attr(x, "clues")
@@ -176,6 +179,7 @@ print.crossword <- function(x, ...) {
 #' @param title puzzle title (character/scalar)
 #' @param legend_size letter size of word list; set to NULL to auto-size (numeric/scalar)
 #' @param ... additional printing args
+#' @return ggplot2 object
 #' @export
 plot.crossword <- function(x,
                            solution = FALSE,

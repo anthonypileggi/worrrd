@@ -31,7 +31,7 @@
 #'  ex3 <- wordsearch(words = math$solution, clues = math$problem)
 #'  plot(ex3, solution = TRUE, title = "Math is Fun")
 #' }
-#' @return a 'wordsearch' object
+#' @return wordsearch object
 #' @export
 wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
                        clues = words,
@@ -105,6 +105,7 @@ wordsearch <- function(words = c("finding", "needles", "inside", "haystacks"),
 
 #' Assign an object to the `wordsearch` class
 #' @param x an object containing wordsearch data
+#' @return wordsearch object
 #' @export
 as_wordsearch <- function(x) {
   if (!is_wordsearch(x))
@@ -114,6 +115,7 @@ as_wordsearch <- function(x) {
 
 #' Check if an object is of the `wordsearch` class
 #' @param x an R object to check
+#' @return logical/scalar
 #' @export
 is_wordsearch <- function(x) {
   inherits(x, "wordsearch")
@@ -125,6 +127,7 @@ is_wordsearch <- function(x) {
 #' Print details for a wordsearch puzzle
 #' @param x wordsearch object (class: wordsearch)
 #' @param ... additional printing args
+#' @return wordsearch object
 #' @export
 print.wordsearch <- function(x, ...) {
   cat(paste("Wordsearch\n"))
@@ -145,6 +148,7 @@ print.wordsearch <- function(x, ...) {
 #' @param legend_size letter size of word list; set to NULL to auto-size (numeric/scalar)
 #' @param ... additional plotting args
 #' @import ggplot2
+#' @return ggplot2 object
 #' @export
 plot.wordsearch <- function(x,
                             solution = FALSE,

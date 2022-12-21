@@ -2,6 +2,10 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version-last-release/worrrd)](https://cran.r-project.org/package=worrrd)
+[![CRAN
+downloads](http://cranlogs.r-pkg.org/badges/worrrd)](https://cran.r-project.org/package=worrrd)
 [![R-CMD-check](https://github.com/anthonypileggi/worrrd/workflows/R-CMD-check/badge.svg)](https://github.com/anthonypileggi/worrrd/actions)
 <!-- badges: end -->
 
@@ -19,8 +23,11 @@ Features:
 ## Installation
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("anthonypileggi/worrrd")
+# Install the CRAN version
+install.packages("worrrd")
+
+# Install development version from GitHub
+remotes::install_github("anthonypileggi/worrrd")
 ```
 
 ## Wordsearch
@@ -94,7 +101,7 @@ x <- crossword(words, clues, r = 40, c = 40)
 x
 #> Crossword Puzzle
 #> Contains 50 clues.
-#> There are 25 across and 25 down.
+#> There are 23 across and 27 down.
 ```
 
 ``` r
